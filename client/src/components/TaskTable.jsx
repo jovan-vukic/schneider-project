@@ -8,6 +8,7 @@ import {
 
 import DATA from "../data.js";
 import EditableCell from "./EditableCell.jsx";
+import StatusCell from "./StatusCell.jsx";
 
 /**
  * AccessorKey is the name of the column in the data.
@@ -26,7 +27,7 @@ const columns = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: (info) => <p>{info.getValue()?.name}</p>,
+    cell: StatusCell,
   },
   {
     accessorKey: "due",
