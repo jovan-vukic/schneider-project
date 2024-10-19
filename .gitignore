@@ -1,0 +1,52 @@
+# Help files
+HELP.md
+
+# Maven and build directories
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Gradle build
+build/
+!**/src/**/build/
+build.log
+.gradle
+.gradle/
+.gradletasknamecache
+
+# IntelliJ IDEA specific files
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# General files and folders to ignore
+# Backup files
+*~              # Backup files ending with ~
+.#*             # Temporary files
+# Compiled code
+*.class         # Compiled Java classes
+*.jar          # Java archive files
+# Project files
+MANIFEST.MF
+dependency-reduced-pom.xml
+.flattened-pom.xml
+# Logs and databases
+dump.rdb
+interpolated*.xml
+# Miscellaneous
+.DS_Store        # macOS file
+.attach_pid*     # Process ID files
+# Additional directories to ignore
+bin/
+lib/
+node_modules/
+code/
+_site/
+activemq-data/
+
+# Ignore specific IDE directories and configuration files
+.git-hooks/
+.metadata/
+.recommenders/
