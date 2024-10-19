@@ -1,6 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import { useState } from "react";
-import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 
 import DATA from "../data.js";
 
@@ -18,12 +22,12 @@ const columns = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: (info) => <p>{info.getValue()}</p>,
+    cell: (info) => <p>{info.getValue()?.name}</p>,
   },
   {
     accessorKey: "due",
     header: "Due Date",
-    cell: (info) => <p>{info.getValue()}</p>,
+    cell: (info) => <p>{info.getValue()?.toLocaleDateString()}</p>,
   },
   {
     accessorKey: "notes",
@@ -59,8 +63,21 @@ const TaskTable = () => {
             {headerGroup.headers.map((header) => (
               // For each header in the header group render a box
               <Box className="th" key={header.id}>
-                {/* Render the header */}
+                {/* Render the header (columns[i].header value) */}
                 {header.column.columnDef.header}
+              </Box>
+            ))}
+          </Box>
+        ))}
+        {/* Render the rows */}
+        {table.getRowModel().rows.map((row) => (
+          // For each row render a box
+          <Box className="tr" key={row.id}>
+            {row.getVisibleCells().map((cell) => (
+              // For each cell in a row render a box
+              <Box className="td" key={cell.id}>
+                {/* Render the cell (columns[i].cell value) */}
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </Box>
             ))}
           </Box>
