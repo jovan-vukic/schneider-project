@@ -33,6 +33,9 @@ public class DeviceService {
         if (device == null)
             throw new InvalidDeviceException("Device cannot be null.");
 
+        if (repository.findByDerId(device.getDerId()) != null)
+            throw new InvalidDeviceException("Device with derId " + device.getDerId() + " already exists.");
+
         return repository.save(device);
     }
 
