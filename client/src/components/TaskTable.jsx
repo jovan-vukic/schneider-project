@@ -17,7 +17,6 @@ const columns = [
   {
     accessorKey: "task",
     header: "Task",
-    size: 100,
     cell: (info) => <p>{info.getValue()}</p>,
   },
   {
@@ -49,6 +48,7 @@ const TaskTable = () => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    columnResizeMode: "onChange",
   });
 
   /**
@@ -63,9 +63,19 @@ const TaskTable = () => {
           <Box className="tr" key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
               // For each header in the header group render a box
-              <Box className="th" key={header.id}>
+              <Box className="th" w={header.getSize()} key={header.id}>
                 {/* Render the header (columns[i].header value) */}
                 {header.column.columnDef.header}
+
+                {/* Render the resizer bar for the columns */}
+                <Box
+                  onMouseDown={header.getResizeHandler()}
+                  onTouchStart={header.getResizeHandler()}
+                  /* If the column is being resized add isResizing class */
+                  className={`resizer ${
+                    header.column.getIsResizing() ? "isResizing" : ""
+                  }`}
+                />
               </Box>
             ))}
           </Box>
