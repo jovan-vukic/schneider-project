@@ -27,7 +27,7 @@ build.log
 .#*             # Temporary files
 # Compiled code
 *.class         # Compiled Java classes
-*.jar          # Java archive files
+*.jar           # Java archive files
 # Project files
 MANIFEST.MF
 dependency-reduced-pom.xml
@@ -50,3 +50,48 @@ activemq-data/
 .git-hooks/
 .metadata/
 .recommenders/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# VS Code specific files
+.vscode/*
+!.vscode/extensions.json
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# React specific files
+.DS_Store
+node_modules
+scripts/flow/*/.flowconfig
+.flowconfig
+*.pyc
+.grunt
+_SpecRunner.html
+__benchmarks__
+remote-repo/
+coverage/
+.module-cache
+fixtures/dom/public/react-dom.js
+fixtures/dom/public/react.js
+test/the-files-to-test.generated.js
+*.log*
+chrome-user-data
+*.swp
+*.swo
+
+# Additional logs, editor directories, and files
+dist/
+dist-ssr/
+*.local
