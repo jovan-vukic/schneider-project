@@ -17,6 +17,7 @@ const columns = [
   {
     accessorKey: "task",
     header: "Task",
+    size: 100,
     cell: (info) => <p>{info.getValue()}</p>,
   },
   {
@@ -56,7 +57,7 @@ const TaskTable = () => {
    */
   return (
     <Box>
-      <Box className="table">
+      <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           // For each header group render a box
           <Box className="tr" key={headerGroup.id}>
@@ -75,7 +76,7 @@ const TaskTable = () => {
           <Box className="tr" key={row.id}>
             {row.getVisibleCells().map((cell) => (
               // For each cell in a row render a box
-              <Box className="td" key={cell.id}>
+              <Box className="td" w={cell.column.getSize()} key={cell.id}>
                 {/* Render the cell (columns[i].cell value) */}
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </Box>
