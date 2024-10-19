@@ -18,7 +18,10 @@ const columns = [
   {
     accessorKey: "task",
     header: "Task",
-    cell: <EditableCell />,
+    /* Pass getValue() method from the cell's info, like in
+      "cell: (info) => <p>{info.getValue()?.name}</p>,"
+    */
+    cell: (info) => <EditableCell value={info.getValue()} />,
   },
   {
     accessorKey: "status",

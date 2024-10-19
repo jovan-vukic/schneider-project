@@ -1,8 +1,8 @@
 import { Input } from "@chakra-ui/react";
 import { useState } from "react";
 
-const EditableCell = () => {
-  const [value, setValue] = useState("");
+const EditableCell = ({ value }) => {
+  const [newValue, setValue] = useState(value);
 
   return (
     <Input
@@ -14,7 +14,7 @@ const EditableCell = () => {
       overflow="hidden"
       whiteSpace="nowrap"
       textOverflow="ellipsis"
-      value={value}
+      value={newValue}
       onChange={(e) => setValue(e.target.value)}
     />
   );
