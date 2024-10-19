@@ -1,4 +1,4 @@
-package com.schneider.project.exceptions;
+package com.schneider.project.exception;
 
 public class DeviceNotFoundException extends RuntimeException {
     public DeviceNotFoundException(Long id) {

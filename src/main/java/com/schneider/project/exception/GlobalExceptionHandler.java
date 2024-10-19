@@ -1,4 +1,4 @@
-package com.schneider.project.exceptions;
+package com.schneider.project.exception;
 
 import com.schneider.project.util.ErrorResponse;
 import org.springframework.http.HttpStatus;

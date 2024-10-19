@@ -1,9 +1,9 @@
-package com.schneider.project.services;
+package com.schneider.project.service;
 
-import com.schneider.project.exceptions.DeviceNotFoundException;
-import com.schneider.project.exceptions.InvalidDeviceException;
-import com.schneider.project.models.*;
-import com.schneider.project.repositories.DeviceRepository;
+import com.schneider.project.exception.DeviceNotFoundException;
+import com.schneider.project.exception.InvalidDeviceException;
+import com.schneider.project.model.*;
+import com.schneider.project.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

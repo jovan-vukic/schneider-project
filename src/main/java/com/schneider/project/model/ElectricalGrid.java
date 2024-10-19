@@ -1,4 +1,4 @@
-package com.schneider.project.models;
+package com.schneider.project.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;

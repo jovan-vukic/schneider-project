@@ -1,7 +1,7 @@
-package com.schneider.project.controllers;
+package com.schneider.project.controller;
 
-import com.schneider.project.models.Device;
-import com.schneider.project.services.DeviceService;
+import com.schneider.project.model.Device;
+import com.schneider.project.service.DeviceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

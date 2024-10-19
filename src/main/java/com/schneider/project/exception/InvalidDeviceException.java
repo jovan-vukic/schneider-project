@@ -1,4 +1,4 @@
-package com.schneider.project.exceptions;
+package com.schneider.project.exception;
 
 public class InvalidDeviceException extends RuntimeException {
     public InvalidDeviceException(String message) {

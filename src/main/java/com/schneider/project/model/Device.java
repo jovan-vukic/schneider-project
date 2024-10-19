@@ -1,4 +1,4 @@
-package com.schneider.project.models;
+package com.schneider.project.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
