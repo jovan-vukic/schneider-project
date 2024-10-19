@@ -21,7 +21,7 @@ const columns = [
     /* Pass getValue() method from the cell's info, like in
       "cell: (info) => <p>{info.getValue()?.name}</p>,"
     */
-    cell: (info) => <EditableCell value={info.getValue()} />,
+    cell: EditableCell,
   },
   {
     accessorKey: "status",
@@ -53,6 +53,23 @@ const TaskTable = () => {
     columns,
     getCoreRowModel: getCoreRowModel(),
     columnResizeMode: "onChange",
+    /* Update "data" through EditableCell */
+    meta: {
+      updateData: (rowIndex, columnId, value) => {
+        setData((old) =>
+          old.map((row, index) => {
+            if (index === rowIndex) {
+              /* Update the row */
+              return {
+                ...old[rowIndex],
+                [columnId]: value,
+              };
+            }
+            return row;
+          })
+        );
+      },
+    },
   });
 
   /**
