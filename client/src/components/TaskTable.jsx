@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-table";
 
 import DATA from "../data.js";
+import EditableCell from "./EditableCell.jsx";
 
 /**
  * AccessorKey is the name of the column in the data.
@@ -17,7 +18,7 @@ const columns = [
   {
     accessorKey: "task",
     header: "Task",
-    cell: (info) => <p>{info.getValue()}</p>,
+    cell: <EditableCell />,
   },
   {
     accessorKey: "status",
@@ -97,4 +98,5 @@ const TaskTable = () => {
     </Box>
   );
 };
+
 export default TaskTable;
