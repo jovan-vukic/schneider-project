@@ -25,7 +25,9 @@ const TypeCell = ({ getValue, row, column, table }) => {
       </MenuButton>
       <MenuList>
         {/* Add option to clear the type */}
-        <MenuItem onClick={() => updateCellData(row.index, column.id, null)}>
+        <MenuItem
+          onClick={async () => updateCellData(row.index, column.id, null)}
+        >
           <ColorIcon color="gray.300" mr={2} />
           Clear Type
         </MenuItem>
@@ -34,7 +36,7 @@ const TypeCell = ({ getValue, row, column, table }) => {
           <MenuItem
             key={type.id}
             /* Update the type in the table state */
-            onClick={() => updateCellData(row.index, column.id, type)}
+            onClick={async () => updateCellData(row.index, column.id, type)}
           >
             <ColorIcon color={type.color} mr={2} />
             {type.name}

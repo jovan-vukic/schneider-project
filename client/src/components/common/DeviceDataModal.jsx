@@ -63,13 +63,13 @@ const DeviceDataModal = ({
       newErrors.derId = "DerId cannot be blank";
     }
 
-    const maxAvailablePower = parseFloat(data.maxAvailablePower);
+    const maximumAvailablePower = parseFloat(data.maximumAvailablePower);
     if (
-      isNaN(maxAvailablePower) ||
-      maxAvailablePower < 0 ||
-      maxAvailablePower > 100
+      isNaN(maximumAvailablePower) ||
+      maximumAvailablePower < 0 ||
+      maximumAvailablePower > 100
     ) {
-      newErrors.maxAvailablePower =
+      newErrors.maximumAvailablePower =
         "Maximum available power must be between 0 and 100";
     }
 
@@ -140,15 +140,19 @@ const DeviceDataModal = ({
           )}
 
           {/* Max Available Output Power Field */}
-          <FormControl isRequired mb={4} isInvalid={!!errors.maxAvailablePower}>
+          <FormControl
+            isRequired
+            mb={4}
+            isInvalid={!!errors.maximumAvailablePower}
+          >
             <FormLabel>MAX Available Output Power</FormLabel>
             <Input
-              name="maxAvailablePower"
-              value={data.maxAvailablePower}
+              name="maximumAvailablePower"
+              value={data.maximumAvailablePower}
               onChange={handleChange}
               type="number"
             />
-            <FormErrorMessage>{errors.maxAvailablePower}</FormErrorMessage>
+            <FormErrorMessage>{errors.maximumAvailablePower}</FormErrorMessage>
           </FormControl>
         </ModalBody>
 

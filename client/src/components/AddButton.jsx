@@ -37,7 +37,7 @@ const EditButton = ({ row, table }) => {
       name: "",
       type: TYPES.find((t) => t.id === 1),
       category: TYPE_CATEGORY_MAP[TYPES.find((t) => t.id === 1).id],
-      maxAvailablePower: "",
+      maximumAvailablePower: "",
     });
     onOpen();
   };

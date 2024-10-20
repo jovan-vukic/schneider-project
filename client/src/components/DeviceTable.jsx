@@ -27,8 +27,14 @@ import DownArrowIcon from "./icons/DownArrowIcon.jsx";
 import EditButton from "./EditButton.jsx";
 import DeleteButton from "./DeleteButton.jsx";
 import AddButton from "./AddButton.jsx";
-import { getDevices } from "../services/DeviceService.js";
-import { STRING_CATEGORY_MAP, STRING_TYPE_MAP, TYPE_ICONS } from "../data.js";
+import { getDevices, updateDevice } from "../services/DeviceService.js";
+import {
+  CATEGORY_STRING_MAP,
+  STRING_CATEGORY_MAP,
+  STRING_TYPE_MAP,
+  TYPE_ICONS,
+  TYPE_STRING_MAP,
+} from "../data.js";
 
 /**
  * AccessorKey is the name of the column in the data.
@@ -105,7 +111,7 @@ const columns = [
     sortDescFirst: false,
   },
   {
-    accessorKey: "maxAvailablePower",
+    accessorKey: "maximumAvailablePower",
     header: "MAX Available Output Power",
     cell: (info) => <p>{info.getValue() + " kW"}</p>,
     size: 250,
@@ -159,7 +165,7 @@ const DeviceTable = () => {
                 icon: TYPE_ICONS[type.id],
                 type: type,
                 category: category,
-                maxAvailablePower: parseFloat(device.maximumAvailablePower),
+                maximumAvailablePower: parseFloat(device.maximumAvailablePower),
               };
             })
         );
@@ -197,21 +203,17 @@ const DeviceTable = () => {
     columnResizeMode: "onChange",
     /* Update "data" through EditableCell */
     meta: {
-      updateCellData: (rowIndex, columnId, value) => {
-        setData((old) =>
-          old.map((row, index) => {
-            if (index === rowIndex) {
-              /* Update the row */
-              return {
-                ...old[rowIndex],
-                [columnId]: value,
-              };
-            }
-            return row;
-          })
-        );
-
-        showToast("Device updated successfully", "success");
+      updateCellData: async (rowIndex, columnId, value) => {
+        try {
+          // Call updateRowData to update the entire row with the new object
+          await table.options.meta.updateRowData(rowIndex, {
+            ...data[rowIndex],
+            [columnId]: value,
+          });
+        } catch (error) {
+          showToast("Failed to update device cell", "error");
+          throw error;
+        }
       },
       deleteRowData: (rowIndex) => {
         setData((old) => old.filter((_, index) => index !== rowIndex));
@@ -219,12 +221,27 @@ const DeviceTable = () => {
         showToast("The device has been successfully deleted.", "success");
       },
       /* Update the whole row and not just the cell value in the row with the specified rowIndex and columnId */
-      updateRowData: (rowIndex, newRowValue) => {
-        setData((old) =>
-          old.map((row, index) => (index === rowIndex ? newRowValue : row))
-        );
+      updateRowData: async (rowIndex, newRowValue) => {
+        try {
+          // Update the data via the API
+          let updatedDevice = newRowValue;
 
-        showToast("The device has been successfully updated.", "success");
+          updatedDevice.type = TYPE_STRING_MAP[updatedDevice.type.id];
+          updatedDevice.category =
+            CATEGORY_STRING_MAP[updatedDevice.category.id];
+
+          await updateDevice(updatedDevice.id, updatedDevice);
+
+          // Update the local data and the data in the table
+          setData((old) =>
+            old.map((row) => (row.id === rowIndex ? updatedDevice : row))
+          );
+
+          showToast("The device has been successfully updated.", "success");
+        } catch (error) {
+          showToast("Error updating device", "error");
+          throw error;
+        }
       },
       addRowData: (newRowValue) => {
         setData((old) => [...old, newRowValue]);
