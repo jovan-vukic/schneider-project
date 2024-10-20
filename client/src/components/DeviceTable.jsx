@@ -18,9 +18,9 @@ import {
 } from "@tanstack/react-table";
 
 import DATA from "../data.js";
-import EditableCell from "./EditableCell.jsx";
-import TypeCell from "./TypeCell.jsx";
-import Filters from "./Filters.jsx";
+import EditableCell from "./common/EditableCell.jsx";
+import TypeCell from "./common/TypeCell.jsx";
+import Filters from "./filters/Filters.jsx";
 import SortIcon from "./icons/SortIcon.jsx";
 import UpArrowIcon from "./icons/UpArrowIcon.jsx";
 import DownArrowIcon from "./icons/DownArrowIcon.jsx";

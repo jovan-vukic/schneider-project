@@ -2,7 +2,7 @@ import { Button, Icon, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 
 import EditIcon from "./icons/EditIcon";
-import DeviceDataModal from "./DeviceDataModal";
+import DeviceDataModal from "./common/DeviceDataModal";
 
 const EditButton = ({ row, table }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

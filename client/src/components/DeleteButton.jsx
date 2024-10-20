@@ -1,5 +1,4 @@
 import { Icon, IconButton } from "@chakra-ui/react";
-import { useState } from "react";
 
 import DeleteIcon from "./icons/DeleteIcon";
 

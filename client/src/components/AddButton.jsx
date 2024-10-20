@@ -1,7 +1,7 @@
 import { Button, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 
-import DeviceDataModal from "./DeviceDataModal";
+import DeviceDataModal from "./common/DeviceDataModal";
 import { TYPE_CATEGORY_MAP, TYPE_ICONS, TYPES } from "../data";
 
 const EditButton = ({ row, table }) => {

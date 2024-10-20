@@ -12,7 +12,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import { TYPES } from "../data.js";
+import { TYPES } from "../../data.js";
 
 const DeviceDataModal = ({
   isOpen,

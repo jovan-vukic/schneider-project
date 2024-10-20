@@ -1,5 +1,4 @@
 import {
-  Box,
   HStack,
   Icon,
   Input,
@@ -7,7 +6,7 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 
-import SearchIcon from "./icons/SearchIcon";
+import SearchIcon from "../icons/SearchIcon";
 import FilterPopover from "./FilterPopover";
 
 const Filters = ({ columnFilters, setColumnFilters }) => {

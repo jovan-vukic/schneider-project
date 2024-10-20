@@ -11,9 +11,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import FilterIcon from "./icons/FilterIcon";
-import { ColorIcon } from "./TypeCell";
-import { TYPES } from "../data";
+import FilterIcon from "../icons/FilterIcon";
+import { ColorIcon } from "../common/TypeCell";
+import { TYPES } from "../../data";
 
 const TypeItem = ({ type, isActive, setColumnFilters }) => {
   return (
