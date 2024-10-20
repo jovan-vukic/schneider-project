@@ -2,7 +2,7 @@ import { Box, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 
 import { STATUSES } from "../data.js";
 
-const ColorIcon = ({ color, ...props }) => (
+export const ColorIcon = ({ color, ...props }) => (
   <Box w="12px" h="12px" borderRadius="full" bg={color} {...props} />
 );
 
