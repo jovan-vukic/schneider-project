@@ -8,9 +8,9 @@ const EditButton = ({ row, table }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [editData, setEditData] = useState(null);
 
-  const handleSave = (updatedData) => {
+  const handleSave = async (updatedData) => {
     // Update the local data and the data in the table
-    table.options.meta?.updateRowData(row.index, updatedData);
+    await table.options.meta?.updateRowData(row.index, updatedData);
   };
 
   const handleModalOpen = () => {

@@ -6,8 +6,8 @@ import ConfirmModal from "./common/ConfirmModal";
 const DeleteButton = ({ row, table }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleDelete = () => {
-    table.options.meta?.deleteRowData(row.index);
+  const handleDelete = async () => {
+    await table.options.meta?.deleteRowData(row.index);
 
     onClose();
   };

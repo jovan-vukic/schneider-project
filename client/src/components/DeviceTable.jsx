@@ -27,7 +27,11 @@ import DownArrowIcon from "./icons/DownArrowIcon.jsx";
 import EditButton from "./EditButton.jsx";
 import DeleteButton from "./DeleteButton.jsx";
 import AddButton from "./AddButton.jsx";
-import { getDevices, updateDevice } from "../services/DeviceService.js";
+import {
+  deleteDevice,
+  getDevices,
+  updateDevice,
+} from "../services/DeviceService.js";
 import {
   CATEGORY_STRING_MAP,
   STRING_CATEGORY_MAP,
@@ -215,16 +219,32 @@ const DeviceTable = () => {
           throw error;
         }
       },
-      deleteRowData: (rowIndex) => {
-        setData((old) => old.filter((_, index) => index !== rowIndex));
+      deleteRowData: async (rowIndex) => {
+        try {
+          // Delete the row on the server
+          await deleteDevice(data[rowIndex].id);
 
-        showToast("The device has been successfully deleted.", "success");
+          // Delete the row locally
+          setData((old) => old.filter((_, index) => index !== rowIndex));
+
+          showToast("The device has been successfully deleted.", "success");
+        } catch (error) {
+          showToast("Error deleting device", "error");
+          throw error;
+        }
       },
       /* Update the whole row and not just the cell value in the row with the specified rowIndex and columnId */
       updateRowData: async (rowIndex, newRowValue) => {
         try {
+          newRowValue["maximumAvailablePower"] = parseFloat(
+            newRowValue["maximumAvailablePower"]
+          );
+
+          console.log("newRowValue", newRowValue);
+          console.log("row[rowIndex]", data[rowIndex]);
+
           // Update the data via the API
-          let updatedDevice = newRowValue;
+          let updatedDevice = { ...newRowValue };
 
           updatedDevice.type = TYPE_STRING_MAP[updatedDevice.type.id];
           updatedDevice.category =
@@ -234,8 +254,10 @@ const DeviceTable = () => {
 
           // Update the local data and the data in the table
           setData((old) =>
-            old.map((row) => (row.id === rowIndex ? updatedDevice : row))
+            old.map((row, index) => (index === rowIndex ? newRowValue : row))
           );
+
+          console.log("data", data);
 
           showToast("The device has been successfully updated.", "success");
         } catch (error) {
