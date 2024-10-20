@@ -15,14 +15,34 @@ import FilterIcon from "./icons/FilterIcon";
 import { ColorIcon } from "./StatusCell";
 import { STATUSES } from "../data";
 
-const StatusItem = ({ status }) => {
+const StatusItem = ({ status, isActive, setColumnFilters }) => {
   return (
     <Button
+      bg={isActive ? `green.800` : `gray.800`}
       size="sm"
       p={2}
       fontWeight="bold"
       borderRadius={6}
       _hover={{ bg: `gray.700` }}
+      onClick={() =>
+        setColumnFilters((old) => {
+          const statuses = old.find((f) => f.id === "status")?.value;
+
+          if (!statuses)
+            return old.concat({ id: "status", value: [status.id] });
+
+          return old.map((f) =>
+            f.id === "status"
+              ? {
+                  ...f,
+                  value: isActive
+                    ? statuses.filter((s) => s !== status.id)
+                    : statuses.concat(status.id),
+                }
+              : f
+          );
+        })
+      }
     >
       <ColorIcon color={status.color} mr={2} />
       {status.name}
@@ -30,7 +50,13 @@ const StatusItem = ({ status }) => {
   );
 };
 
-const FilterPopover = () => {
+const FilterPopover = ({ columnFilters, setColumnFilters }) => {
+  /* Get array of all active statuses to check if specific status is active */
+  /* We check if current StatusItem is in this array which means it is active. */
+  const statuses = columnFilters.find((f) => f.id === "status")?.value || [];
+
+  console.log(statuses);
+
   return (
     <Popover isLazy>
       <PopoverTrigger>
@@ -42,15 +68,20 @@ const FilterPopover = () => {
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverBody>
-          <Text fontSize="md" color="gray.500" fontWeight="bold" mb={2}>
+          <Text fontSize="md" color="gray.300" fontWeight="bold" mb={2}>
             Filter By:
           </Text>
-          <Text fontWeight="bold" color="gray.500" mb={2}>
+          <Text fontWeight="bold" color="gray.400" mb={2}>
             Status
           </Text>
           <VStack align="flex-start" spacing={2}>
             {STATUSES.map((status) => (
-              <StatusItem status={status} key={status.id} />
+              <StatusItem
+                key={status.id}
+                status={status}
+                isActive={statuses.includes(status.id)}
+                setColumnFilters={setColumnFilters}
+              />
             ))}
           </VStack>
         </PopoverBody>

@@ -89,6 +89,8 @@ const TaskTable = () => {
     },
   });
 
+  console.log(columnFilters);
+
   /**
    * To get table headers call table.getHeaderGroups().
    * Check with console.log(table.getHeaderGroups()).

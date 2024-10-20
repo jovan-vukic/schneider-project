@@ -42,7 +42,10 @@ const Filters = ({ columnFilters, setColumnFilters }) => {
           }}
         />
       </InputGroup>
-      <FilterPopover />
+      <FilterPopover
+        columnFilters={columnFilters}
+        setColumnFilters={setColumnFilters}
+      />
     </HStack>
   );
 };
