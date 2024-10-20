@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
         @JsonSubTypes.Type(value = PhotovoltaicPanel.class, name = "PHOTOVOLTAIC_PANEL"),
         @JsonSubTypes.Type(value = WindTurbine.class, name = "WIND_TURBINE"),
         @JsonSubTypes.Type(value = Battery.class, name = "BATTERY"),
+        @JsonSubTypes.Type(value = ElectricalVehicle.class, name = "ELECTRICAL_VEHICLE"),
         @JsonSubTypes.Type(value = ElectricalGrid.class, name = "ELECTRICAL_GRID"),
         @JsonSubTypes.Type(value = Building.class, name = "BUILDING"),
         @JsonSubTypes.Type(value = ResidualElectricalLoads.class, name = "RESIDUAL_ELECTRICAL_LOADS"),
@@ -32,6 +33,7 @@ public abstract class Device {
         PHOTOVOLTAIC_PANEL,
         WIND_TURBINE,
         BATTERY,
+        ELECTRICAL_VEHICLE,
         ELECTRICAL_GRID,
         BUILDING,
         RESIDUAL_ELECTRICAL_LOADS
