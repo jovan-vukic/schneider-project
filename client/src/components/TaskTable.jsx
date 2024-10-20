@@ -1,9 +1,10 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Icon } from "@chakra-ui/react";
 import { useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -11,6 +12,7 @@ import DATA from "../data.js";
 import EditableCell from "./EditableCell.jsx";
 import StatusCell from "./StatusCell.jsx";
 import Filters from "./Filters.jsx";
+import SortIcon from "./icons/SortIcon.jsx";
 
 /**
  * AccessorKey is the name of the column in the data.
@@ -84,6 +86,7 @@ const TaskTable = () => {
     },
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     columnResizeMode: "onChange",
     /* Update "data" through EditableCell */
     meta: {
@@ -123,6 +126,16 @@ const TaskTable = () => {
               <Box className="th" w={header.getSize()} key={header.id}>
                 {/* Render the header (columns[i].header value) */}
                 {header.column.columnDef.header}
+
+                {/* Render sorting icon */}
+                {header.column.getCanSort() && (
+                  <Icon
+                    as={SortIcon}
+                    mx={3}
+                    fontSize="xs"
+                    onClick={header.column.getToggleSortingHandler()}
+                  />
+                )}
 
                 {/* Render the resizer bar for the columns */}
                 <Box
