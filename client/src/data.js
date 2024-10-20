@@ -61,7 +61,7 @@ const DATA = [
     name: "Device 1",
     type: TYPE_PHOTOVOLTAIC_PANEL,
     category: CATEGORY_PRODUCER,
-    maxAvailablePower: "10.4 kW",
+    maxAvailablePower: "10.4",
   },
   {
     derId: "123457",
@@ -69,7 +69,7 @@ const DATA = [
     name: "Device 2",
     type: TYPE_WIND_TURBINE,
     category: CATEGORY_PRODUCER,
-    maxAvailablePower: "15.2 kW",
+    maxAvailablePower: "15.2",
   },
   {
     derId: "123458",
@@ -77,7 +77,7 @@ const DATA = [
     name: "Device 3",
     type: TYPE_BATTERY,
     category: CATEGORY_MIXED,
-    maxAvailablePower: "5.0 kW",
+    maxAvailablePower: "5.0",
   },
   {
     derId: "123459",
@@ -85,7 +85,7 @@ const DATA = [
     name: "Device 4",
     type: TYPE_ELECTRICAL_GRID,
     category: CATEGORY_CONSUMER,
-    maxAvailablePower: "100 kW",
+    maxAvailablePower: "100",
   },
   {
     derId: "123460",
@@ -93,7 +93,7 @@ const DATA = [
     name: "Device 5",
     type: TYPE_BUILDING,
     category: CATEGORY_CONSUMER,
-    maxAvailablePower: "30.0 kW",
+    maxAvailablePower: "30.0",
   },
   {
     derId: "123461",
@@ -101,7 +101,7 @@ const DATA = [
     name: "Device 6",
     type: TYPE_RESIDUAL_ELECTRICAL_LOADS,
     category: CATEGORY_CONSUMER,
-    maxAvailablePower: "8.0 kW",
+    maxAvailablePower: "8.0",
   },
   {
     derId: "123462",
@@ -109,7 +109,7 @@ const DATA = [
     name: "Device 7",
     type: TYPE_PHOTOVOLTAIC_PANEL,
     category: CATEGORY_PRODUCER,
-    maxAvailablePower: "12.5 kW",
+    maxAvailablePower: "12.5",
   },
   {
     derId: "123463",
@@ -117,7 +117,7 @@ const DATA = [
     name: "Device 8",
     type: TYPE_WIND_TURBINE,
     category: CATEGORY_PRODUCER,
-    maxAvailablePower: "20.0 kW",
+    maxAvailablePower: "20.0",
   },
   {
     derId: "123464",
@@ -125,7 +125,7 @@ const DATA = [
     name: "Device 9",
     type: TYPE_BATTERY,
     category: CATEGORY_MIXED,
-    maxAvailablePower: "7.5 kW",
+    maxAvailablePower: "7.5",
   },
   {
     derId: "123465",
@@ -133,7 +133,7 @@ const DATA = [
     name: "Device 10",
     type: TYPE_ELECTRICAL_GRID,
     category: CATEGORY_CONSUMER,
-    maxAvailablePower: "200 kW",
+    maxAvailablePower: "200",
   },
   {
     derId: "123466",
@@ -141,7 +141,7 @@ const DATA = [
     name: "Device 11",
     type: TYPE_BUILDING,
     category: CATEGORY_CONSUMER,
-    maxAvailablePower: "50.0 kW",
+    maxAvailablePower: "50.0",
   },
   {
     derId: "123467",
@@ -149,7 +149,7 @@ const DATA = [
     name: "Device 12",
     type: TYPE_RESIDUAL_ELECTRICAL_LOADS,
     category: CATEGORY_CONSUMER,
-    maxAvailablePower: "10.0 kW",
+    maxAvailablePower: "10.0",
   },
   {
     derId: "123468",
@@ -157,7 +157,7 @@ const DATA = [
     name: "Device 13",
     type: TYPE_PHOTOVOLTAIC_PANEL,
     category: CATEGORY_PRODUCER,
-    maxAvailablePower: "11.0 kW",
+    maxAvailablePower: "11.0",
   },
   {
     derId: "123469",
@@ -165,7 +165,7 @@ const DATA = [
     name: "Device 14",
     type: TYPE_WIND_TURBINE,
     category: CATEGORY_PRODUCER,
-    maxAvailablePower: "22.0 kW",
+    maxAvailablePower: "22.0",
   },
   {
     derId: "123470",
@@ -173,7 +173,7 @@ const DATA = [
     name: "Device 15",
     type: TYPE_BATTERY,
     category: CATEGORY_MIXED,
-    maxAvailablePower: "6.0 kW",
+    maxAvailablePower: "6.0",
   },
   {
     derId: "123471",
@@ -181,7 +181,7 @@ const DATA = [
     name: "Device 16",
     type: TYPE_ELECTRICAL_GRID,
     category: CATEGORY_CONSUMER,
-    maxAvailablePower: "150 kW",
+    maxAvailablePower: "150",
   },
   {
     derId: "123472",
@@ -189,7 +189,7 @@ const DATA = [
     name: "Device 17",
     type: TYPE_BUILDING,
     category: CATEGORY_CONSUMER,
-    maxAvailablePower: "40.0 kW",
+    maxAvailablePower: "40.0",
   },
   {
     derId: "123473",
@@ -197,7 +197,7 @@ const DATA = [
     name: "Device 18",
     type: TYPE_RESIDUAL_ELECTRICAL_LOADS,
     category: CATEGORY_CONSUMER,
-    maxAvailablePower: "9.5 kW",
+    maxAvailablePower: "9.5",
   },
   {
     derId: "123474",
@@ -205,7 +205,7 @@ const DATA = [
     name: "Device 19",
     type: TYPE_PHOTOVOLTAIC_PANEL,
     category: CATEGORY_PRODUCER,
-    maxAvailablePower: "13.3 kW",
+    maxAvailablePower: "13.3",
   },
   {
     derId: "123475",
@@ -213,7 +213,7 @@ const DATA = [
     name: "Device 20",
     type: TYPE_WIND_TURBINE,
     category: CATEGORY_PRODUCER,
-    maxAvailablePower: "18.5 kW",
+    maxAvailablePower: "18.5",
   },
 ];
 

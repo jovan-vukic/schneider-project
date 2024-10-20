@@ -1,4 +1,11 @@
-import { Box, Button, ButtonGroup, Icon, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Icon,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import {
   flexRender,
@@ -97,7 +104,7 @@ const columns = [
   {
     accessorKey: "maxAvailablePower",
     header: "MAX Available Output Power",
-    cell: (info) => <p>{info.getValue()}</p>,
+    cell: (info) => <p>{info.getValue() + " kW"}</p>,
     size: 250,
   },
   {
@@ -155,8 +162,14 @@ const DeviceTable = () => {
           })
         );
       },
-      deleteData: (rowIndex) => {
+      deleteRowData: (rowIndex) => {
         setData((old) => old.filter((_, index) => index !== rowIndex));
+      },
+      /* Update the whole row and not just the cell value in the row with the specified rowIndex and columnId */
+      updateRowData: (rowIndex, newRowValue) => {
+        setData((old) =>
+          old.map((row, index) => (index === rowIndex ? newRowValue : row))
+        );
       },
     },
   });
