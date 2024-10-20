@@ -1,5 +1,4 @@
 import { Box, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import React from "react";
 
 import { STATUSES } from "../data.js";
 

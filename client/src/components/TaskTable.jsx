@@ -9,6 +9,7 @@ import {
 import DATA from "../data.js";
 import EditableCell from "./EditableCell.jsx";
 import StatusCell from "./StatusCell.jsx";
+import Filters from "./Filters.jsx";
 
 /**
  * AccessorKey is the name of the column in the data.
@@ -49,14 +50,22 @@ const columns = [
 const TaskTable = () => {
   const [data, setData] = useState(DATA);
 
+  /* By default there are no filters */
+  const [columnFilters, setColumnFilters] = useState([]);
+
   /**
    * Data is the table data from the data.js file.
    * Columns is the table columns array from above.
    * getCoreRowModel is a function from @tanstack/react-table.
+   * Anything inside of state object is accessible
+   * to other components via table.getState().
    */
   const table = useReactTable({
     data,
     columns,
+    state: {
+      columnFilters,
+    },
     getCoreRowModel: getCoreRowModel(),
     columnResizeMode: "onChange",
     /* Update "data" through EditableCell */
@@ -84,6 +93,7 @@ const TaskTable = () => {
    */
   return (
     <Box>
+      <Filters />
       <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           // For each header group render a box

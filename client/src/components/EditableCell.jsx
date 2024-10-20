@@ -14,8 +14,6 @@ const EditableCell = ({ getValue, row, column, table }) => {
     setValue(initialValue);
   }, [initialValue]);
 
-  console.log(row);
-
   return (
     <Input
       type="text"
