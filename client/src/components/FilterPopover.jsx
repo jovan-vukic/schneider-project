@@ -55,8 +55,6 @@ const FilterPopover = ({ columnFilters, setColumnFilters }) => {
   /* We check if current StatusItem is in this array which means it is active. */
   const statuses = columnFilters.find((f) => f.id === "status")?.value || [];
 
-  console.log(statuses);
-
   return (
     <Popover isLazy>
       <PopoverTrigger>

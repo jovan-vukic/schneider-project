@@ -25,11 +25,26 @@ const columns = [
       "cell: (info) => <p>{info.getValue()?.name}</p>,"
     */
     cell: EditableCell,
+    enableColumnFilter: true,
+    /* Uses builtin filter function */
+    filterFn: "includesString",
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: StatusCell,
+    enableColumnFilter: true,
+    filterFn: (row, columnId, filterStatuses) => {
+      /* If it returnes false, row will be removed */
+      const status = row.getValue(columnId);
+
+      /* filterStatuses is an array of status ids defined in status filter */
+      /**
+       * When we remove all filteres, the arrray filterStatuses will be empty,
+       * so we should return true and keep the row in the table data
+       * */
+      return filterStatuses.length === 0 || filterStatuses.includes(status?.id);
+    },
   },
   {
     accessorKey: "due",
@@ -88,8 +103,6 @@ const TaskTable = () => {
       },
     },
   });
-
-  console.log(columnFilters);
 
   /**
    * To get table headers call table.getHeaderGroups().
