@@ -6,6 +6,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  sortingFns,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -58,7 +59,6 @@ const columns = [
     header: "Type",
     cell: TypeCell,
     enableColumnFilter: true,
-    enableSorting: false,
     filterFn: (row, columnId, filterTypes) => {
       /* If it returnes false, row will be removed */
       const type = row.getValue(columnId);
@@ -70,11 +70,29 @@ const columns = [
        * */
       return filterTypes.length === 0 || filterTypes.includes(type?.id);
     },
+    sortingFn: (rowA, rowB) => {
+      const typeA = rowA.original.type.name.toLowerCase();
+      const typeB = rowB.original.type.name.toLowerCase();
+
+      if (typeA < typeB) return -1;
+      if (typeA > typeB) return 1;
+      return 0;
+    },
+    sortDescFirst: false,
   },
   {
     accessorKey: "category",
     header: "Category",
     cell: (info) => <p>{info.getValue()?.name}</p>,
+    sortingFn: (rowA, rowB) => {
+      const categoryA = rowA.original.category.name.toLowerCase();
+      const categoryB = rowB.original.category.name.toLowerCase();
+
+      if (categoryA < categoryB) return -1;
+      if (categoryA > categoryB) return 1;
+      return 0;
+    },
+    sortDescFirst: false,
   },
   {
     accessorKey: "maxAvailablePower",
@@ -123,7 +141,7 @@ const DeviceTable = () => {
     columnResizeMode: "onChange",
     /* Update "data" through EditableCell */
     meta: {
-      updateData: (rowIndex, columnId, value) => {
+      updateCellData: (rowIndex, columnId, value) => {
         setData((old) =>
           old.map((row, index) => {
             if (index === rowIndex) {
@@ -142,8 +160,6 @@ const DeviceTable = () => {
       },
     },
   });
-
-  console.log(data);
 
   /**
    * To get table headers call table.getHeaderGroups().

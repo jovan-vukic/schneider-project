@@ -9,7 +9,7 @@ export const ColorIcon = ({ color, ...props }) => (
 const TypeCell = ({ getValue, row, column, table }) => {
   /* If type is null, default to an empty object */
   const { name, color } = getValue() || {};
-  const { updateData } = table.options.meta;
+  const { updateCellData } = table.options.meta;
 
   return (
     <Menu isLazy offset={[0, 0]} flip={false} autoSelect={false}>
@@ -25,7 +25,7 @@ const TypeCell = ({ getValue, row, column, table }) => {
       </MenuButton>
       <MenuList>
         {/* Add option to clear the type */}
-        <MenuItem onClick={() => updateData(row.index, column.id, null)}>
+        <MenuItem onClick={() => updateCellData(row.index, column.id, null)}>
           <ColorIcon color="gray.300" mr={2} />
           Clear Type
         </MenuItem>
@@ -34,7 +34,7 @@ const TypeCell = ({ getValue, row, column, table }) => {
           <MenuItem
             key={type.id}
             /* Update the type in the table state */
-            onClick={() => updateData(row.index, column.id, type)}
+            onClick={() => updateCellData(row.index, column.id, type)}
           >
             <ColorIcon color={type.color} mr={2} />
             {type.name}

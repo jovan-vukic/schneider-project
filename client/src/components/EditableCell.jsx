@@ -6,7 +6,7 @@ const EditableCell = ({ getValue, row, column, table }) => {
   const [value, setValue] = useState(initialValue);
 
   const onValueChange = () => {
-    table.options.meta?.updateData(row.index, column.id, value);
+    table.options.meta?.updateCellData(row.index, column.id, value);
   };
 
   /* Ensure the local value here is always up to date */
