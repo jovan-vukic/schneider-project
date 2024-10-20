@@ -25,6 +25,12 @@ const StatusCell = ({ getValue, row, column, table }) => {
         {name}
       </MenuButton>
       <MenuList>
+        {/* Add option to clear the status */}
+        <MenuItem onClick={() => updateData(row.index, column.id, null)}>
+          <ColorIcon color="gray.300" mr={2} />
+          Clear Status
+        </MenuItem>
+
         {STATUSES.map((status) => (
           <MenuItem
             key={status.id}
