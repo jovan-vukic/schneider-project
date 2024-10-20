@@ -59,6 +59,7 @@ public class DeviceService {
         if (!device.getDerId().equals(existingDevice.getDerId()))
             throw new InvalidDeviceException("Device derId cannot be changed.");
 
+        device.setCreatedAt(existingDevice.getCreatedAt());
         return repository.save(device);
     }
 
