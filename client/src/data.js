@@ -1,6 +1,7 @@
 import PhotovoltaicPanelIcon from "./components/icons/devices/PhotovoltaicPanelIcon";
 import WindTurbineIcon from "./components/icons/devices/WindTurbineIcon";
 import BatteryIcon from "./components/icons/devices/BatteryIcon";
+import ElectricalVehicleIcon from "./components/icons/devices/ElectricalVehicleIcon";
 import ElectricalGridIcon from "./components/icons/devices/ElectricalGridIcon";
 import BuildingIcon from "./components/icons/devices/BuildingIcon";
 import ResidualLoadsIcon from "./components/icons/devices/ResidualLoadsIcon";
@@ -13,14 +14,19 @@ const TYPE_PHOTOVOLTAIC_PANEL = {
 };
 const TYPE_WIND_TURBINE = { id: 2, name: "Wind Turbine", color: "green.300" };
 const TYPE_BATTERY = { id: 3, name: "Battery", color: "red.400" };
-const TYPE_ELECTRICAL_GRID = {
+const TYPE_ELECTRICAL_VEHICLE = {
   id: 4,
+  name: "Electrical Vehicle",
+  color: "gray.300",
+};
+const TYPE_ELECTRICAL_GRID = {
+  id: 5,
   name: "Electrical Grid",
   color: "teal.300",
 };
-const TYPE_BUILDING = { id: 5, name: "Building", color: "purple.300" };
+const TYPE_BUILDING = { id: 6, name: "Building", color: "purple.300" };
 const TYPE_RESIDUAL_ELECTRICAL_LOADS = {
-  id: 6,
+  id: 7,
   name: "Residual Electrical Loads",
   color: "yellow.300",
 };
@@ -28,6 +34,7 @@ export const TYPES = [
   TYPE_PHOTOVOLTAIC_PANEL,
   TYPE_WIND_TURBINE,
   TYPE_BATTERY,
+  TYPE_ELECTRICAL_VEHICLE,
   TYPE_ELECTRICAL_GRID,
   TYPE_BUILDING,
   TYPE_RESIDUAL_ELECTRICAL_LOADS,
@@ -43,11 +50,22 @@ export const CATEGORIES = [
   CATEGORY_MIXED,
 ];
 
+export const TYPE_CATEGORY_MAP = {
+  [TYPE_PHOTOVOLTAIC_PANEL.id]: CATEGORY_PRODUCER,
+  [TYPE_WIND_TURBINE.id]: CATEGORY_PRODUCER,
+  [TYPE_BATTERY.id]: CATEGORY_MIXED,
+  [TYPE_ELECTRICAL_VEHICLE.id]: CATEGORY_CONSUMER,
+  [TYPE_ELECTRICAL_GRID.id]: CATEGORY_PRODUCER,
+  [TYPE_BUILDING.id]: CATEGORY_CONSUMER,
+  [TYPE_RESIDUAL_ELECTRICAL_LOADS.id]: CATEGORY_CONSUMER,
+};
+
 /* Define type icons */
-const TYPE_ICONS = {
+export const TYPE_ICONS = {
   [TYPE_PHOTOVOLTAIC_PANEL.id]: PhotovoltaicPanelIcon,
   [TYPE_WIND_TURBINE.id]: WindTurbineIcon,
   [TYPE_BATTERY.id]: BatteryIcon,
+  [TYPE_ELECTRICAL_VEHICLE.id]: ElectricalVehicleIcon,
   [TYPE_ELECTRICAL_GRID.id]: ElectricalGridIcon,
   [TYPE_BUILDING.id]: BuildingIcon,
   [TYPE_RESIDUAL_ELECTRICAL_LOADS.id]: ResidualLoadsIcon,
@@ -65,10 +83,10 @@ const DATA = [
   },
   {
     derId: "123457",
-    icon: TYPE_ICONS[TYPE_WIND_TURBINE.id],
+    icon: TYPE_ICONS[TYPE_ELECTRICAL_VEHICLE.id],
     name: "Device 2",
-    type: TYPE_WIND_TURBINE,
-    category: CATEGORY_PRODUCER,
+    type: TYPE_ELECTRICAL_VEHICLE,
+    category: CATEGORY_CONSUMER,
     maxAvailablePower: "15.2",
   },
   {
