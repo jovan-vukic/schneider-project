@@ -181,7 +181,7 @@ const DeviceTable = () => {
       deleteRowData: (rowIndex) => {
         setData((old) => old.filter((_, index) => index !== rowIndex));
 
-        showToast("Device deleted successfully", "success");
+        showToast("The device has been successfully deleted.", "success");
       },
       /* Update the whole row and not just the cell value in the row with the specified rowIndex and columnId */
       updateRowData: (rowIndex, newRowValue) => {
@@ -189,12 +189,12 @@ const DeviceTable = () => {
           old.map((row, index) => (index === rowIndex ? newRowValue : row))
         );
 
-        showToast("Device updated successfully", "success");
+        showToast("The device has been successfully updated.", "success");
       },
       addRowData: (newRowValue) => {
         setData((old) => [...old, newRowValue]);
 
-        showToast("Device added successfully", "success");
+        showToast("The device has been successfully created.", "success");
       },
     },
   });

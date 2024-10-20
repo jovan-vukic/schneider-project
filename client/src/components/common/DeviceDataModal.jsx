@@ -99,7 +99,7 @@ const DeviceDataModal = ({
           {/* DER ID Field */}
           <FormControl isRequired mb={4} isInvalid={!!errors.derId}>
             <FormLabel>DER ID</FormLabel>
-            <Input isDisabled name="derId" value={data.derId} />
+            <Input isDisabled name="derId" value={data.derId} type="text" />
             <FormErrorMessage>{errors.derId}</FormErrorMessage>
           </FormControl>
 
@@ -146,6 +146,7 @@ const DeviceDataModal = ({
               name="maxAvailablePower"
               value={data.maxAvailablePower}
               onChange={handleChange}
+              type="number"
             />
             <FormErrorMessage>{errors.maxAvailablePower}</FormErrorMessage>
           </FormControl>
