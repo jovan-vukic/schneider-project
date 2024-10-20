@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/devices")
+@CrossOrigin(value = "*", maxAge = 3600)
 @Validated
 public class DeviceController {
     @Autowired
