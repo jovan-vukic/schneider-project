@@ -11,7 +11,7 @@ const DeleteButton = ({ row, table }) => {
     <IconButton
       isRound={true}
       variant="solid"
-      colorScheme="green"
+      colorScheme="red"
       size="sm"
       aria-label="Delete device"
       icon={<Icon as={DeleteIcon} fontSize="xl" />}

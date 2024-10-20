@@ -9,7 +9,7 @@ const EditButton = ({ row }) => {
 
   return (
     <Button
-      colorScheme="red"
+      colorScheme="green"
       size="sm"
       leftIcon={<Icon as={EditIcon} fontSize="xs" />}
       onClick={() => handleEdit(row.index)}
