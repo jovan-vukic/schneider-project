@@ -28,6 +28,7 @@ import EditButton from "./EditButton.jsx";
 import DeleteButton from "./DeleteButton.jsx";
 import AddButton from "./AddButton.jsx";
 import {
+  addDevice,
   deleteDevice,
   getDevices,
   updateDevice,
@@ -236,13 +237,6 @@ const DeviceTable = () => {
       /* Update the whole row and not just the cell value in the row with the specified rowIndex and columnId */
       updateRowData: async (rowIndex, newRowValue) => {
         try {
-          newRowValue["maximumAvailablePower"] = parseFloat(
-            newRowValue["maximumAvailablePower"]
-          );
-
-          console.log("newRowValue", newRowValue);
-          console.log("row[rowIndex]", data[rowIndex]);
-
           // Update the data via the API
           let updatedDevice = { ...newRowValue };
 
@@ -257,18 +251,32 @@ const DeviceTable = () => {
             old.map((row, index) => (index === rowIndex ? newRowValue : row))
           );
 
-          console.log("data", data);
-
           showToast("The device has been successfully updated.", "success");
         } catch (error) {
           showToast("Error updating device", "error");
           throw error;
         }
       },
-      addRowData: (newRowValue) => {
-        setData((old) => [...old, newRowValue]);
+      addRowData: async (newRowValue) => {
+        try {
+          const newDevice = {
+            ...newRowValue,
+            type: TYPE_STRING_MAP[newRowValue.type.id],
+            category: CATEGORY_STRING_MAP[newRowValue.category.id],
+          };
 
-        showToast("The device has been successfully created.", "success");
+          // Add the device to the server
+          await addDevice(newDevice).then((res) => {
+            setData((old) => {
+              return [...old, { ...newRowValue, id: res.id }];
+            });
+          });
+
+          showToast("The device has been successfully added.", "success");
+        } catch (error) {
+          showToast("Error adding device", "error");
+          throw error;
+        }
       },
     },
   });
