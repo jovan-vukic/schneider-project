@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -67,6 +68,7 @@ const TaskTable = () => {
       columnFilters,
     },
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     columnResizeMode: "onChange",
     /* Update "data" through EditableCell */
     meta: {
@@ -93,7 +95,10 @@ const TaskTable = () => {
    */
   return (
     <Box>
-      <Filters />
+      <Filters
+        columnFilters={columnFilters}
+        setColumnFilters={setColumnFilters}
+      />
       <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           // For each header group render a box
