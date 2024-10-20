@@ -11,18 +11,18 @@ const TYPE_PHOTOVOLTAIC_PANEL = {
   name: "Photovoltaic Panel",
   color: "blue.300",
 };
-const TYPE_WIND_TURBINE = { id: 2, name: "Wind Turbine", color: "purple.300" };
-const TYPE_BATTERY = { id: 3, name: "Battery", color: "red.300" };
+const TYPE_WIND_TURBINE = { id: 2, name: "Wind Turbine", color: "green.300" };
+const TYPE_BATTERY = { id: 3, name: "Battery", color: "red.400" };
 const TYPE_ELECTRICAL_GRID = {
   id: 4,
   name: "Electrical Grid",
-  color: "orange.300",
+  color: "teal.300",
 };
-const TYPE_BUILDING = { id: 5, name: "Building", color: "yellow.300" };
+const TYPE_BUILDING = { id: 5, name: "Building", color: "purple.300" };
 const TYPE_RESIDUAL_ELECTRICAL_LOADS = {
   id: 6,
   name: "Residual Electrical Loads",
-  color: "green.300",
+  color: "yellow.300",
 };
 export const TYPES = [
   TYPE_PHOTOVOLTAIC_PANEL,
