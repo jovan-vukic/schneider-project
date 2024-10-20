@@ -124,6 +124,19 @@ const columns = [
 
 const DeviceTable = () => {
   const [data, setData] = useState(DATA);
+  const toast = useToast();
+
+  /* Display toast message */
+  const showToast = (message, status) => {
+    setTimeout(() => {
+      toast({
+        title: message,
+        status: status,
+        duration: 2000,
+        isClosable: true,
+      });
+    }, 500);
+  };
 
   /* By default there are no filters */
   const [columnFilters, setColumnFilters] = useState([]);
@@ -161,15 +174,21 @@ const DeviceTable = () => {
             return row;
           })
         );
+
+        showToast("Device updated successfully", "success");
       },
       deleteRowData: (rowIndex) => {
         setData((old) => old.filter((_, index) => index !== rowIndex));
+
+        showToast("Device deleted successfully", "success");
       },
       /* Update the whole row and not just the cell value in the row with the specified rowIndex and columnId */
       updateRowData: (rowIndex, newRowValue) => {
         setData((old) =>
           old.map((row, index) => (index === rowIndex ? newRowValue : row))
         );
+
+        showToast("Device updated successfully", "success");
       },
     },
   });
