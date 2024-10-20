@@ -2,22 +2,22 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Center,
   Icon,
+  Spinner,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  sortingFns,
   useReactTable,
 } from "@tanstack/react-table";
 
-import DATA from "../data.js";
 import EditableCell from "./common/EditableCell.jsx";
 import TypeCell from "./common/TypeCell.jsx";
 import Filters from "./filters/Filters.jsx";
@@ -27,6 +27,8 @@ import DownArrowIcon from "./icons/DownArrowIcon.jsx";
 import EditButton from "./EditButton.jsx";
 import DeleteButton from "./DeleteButton.jsx";
 import AddButton from "./AddButton.jsx";
+import { getDevices } from "../services/DeviceService.js";
+import { STRING_CATEGORY_MAP, STRING_TYPE_MAP, TYPE_ICONS } from "../data.js";
 
 /**
  * AccessorKey is the name of the column in the data.
@@ -124,7 +126,8 @@ const columns = [
 ];
 
 const DeviceTable = () => {
-  const [data, setData] = useState(DATA);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const toast = useToast();
 
   /* Display toast message */
@@ -138,6 +141,38 @@ const DeviceTable = () => {
       });
     }, 500);
   };
+
+  /* Fetch the devices from the API */
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const devices = await getDevices();
+
+        setData(
+          devices &&
+            devices.map((device) => {
+              const type = STRING_TYPE_MAP[device.type];
+              const category = STRING_CATEGORY_MAP[device.category];
+
+              return {
+                ...device,
+                icon: TYPE_ICONS[type.id],
+                type: type,
+                category: category,
+                maxAvailablePower: parseFloat(device.maximumAvailablePower),
+              };
+            })
+        );
+        setLoading(false);
+      } catch (error) {
+        showToast("Error fetching devices", "error");
+        setLoading(false);
+        throw error;
+      }
+    };
+
+    fetchData();
+  }, []);
 
   /* By default there are no filters */
   const [columnFilters, setColumnFilters] = useState([]);
@@ -198,6 +233,30 @@ const DeviceTable = () => {
       },
     },
   });
+
+  if (loading) {
+    return (
+      <Center h="100vh">
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </Center>
+    );
+  }
+
+  if (!loading && (!data || data.length === 0)) {
+    /* Return just list of devices is empty message */
+    console.log(data);
+    return (
+      <Center h="100vh">
+        <Text fontSize="2xl">No devices found</Text>
+      </Center>
+    );
+  }
 
   /**
    * To get table headers call table.getHeaderGroups().
