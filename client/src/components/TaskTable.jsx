@@ -13,6 +13,8 @@ import EditableCell from "./EditableCell.jsx";
 import StatusCell from "./StatusCell.jsx";
 import Filters from "./Filters.jsx";
 import SortIcon from "./icons/SortIcon.jsx";
+import UpArrowIcon from "./icons/UpArrowIcon.jsx";
+import DownArrowIcon from "./icons/DownArrowIcon.jsx";
 
 /**
  * AccessorKey is the name of the column in the data.
@@ -36,6 +38,7 @@ const columns = [
     header: "Status",
     cell: StatusCell,
     enableColumnFilter: true,
+    enableSorting: false,
     filterFn: (row, columnId, filterStatuses) => {
       /* If it returnes false, row will be removed */
       const status = row.getValue(columnId);
@@ -130,10 +133,19 @@ const TaskTable = () => {
                 {/* Render sorting icon */}
                 {header.column.getCanSort() && (
                   <Icon
-                    as={SortIcon}
+                    as={
+                      header.column.getIsSorted() === "asc"
+                        ? UpArrowIcon
+                        : header.column.getIsSorted() === "desc"
+                        ? DownArrowIcon
+                        : SortIcon
+                    }
                     mx={3}
-                    fontSize="xs"
+                    fontSize={16}
                     onClick={header.column.getToggleSortingHandler()}
+                    color={
+                      header.column.getIsSorted() ? "yellow.300" : "gray.400"
+                    }
                   />
                 )}
 
