@@ -13,7 +13,7 @@ import {
 
 import FilterIcon from "../icons/FilterIcon";
 import { ColorIcon } from "../common/TypeCell";
-import { TYPES } from "../../data";
+import { TYPES } from "../../utils/constants";
 
 const TypeItem = ({ type, isActive, setColumnFilters }) => {
   return (

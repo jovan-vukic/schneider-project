@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleException(Exception ex) {
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "Request failed because of an internal problem." +
+                "Request failed because of an internal problem. " +
                         "Please contact support or your administrator. Error: " + ex.getMessage()
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);

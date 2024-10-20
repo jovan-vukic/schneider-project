@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-import { TYPES } from "../../data.js";
+import { TYPES } from "../../utils/constants";
 
 const DeviceDataModal = ({
   isOpen,

@@ -1,35 +1,54 @@
-import PhotovoltaicPanelIcon from "./components/icons/devices/PhotovoltaicPanelIcon";
-import WindTurbineIcon from "./components/icons/devices/WindTurbineIcon";
-import BatteryIcon from "./components/icons/devices/BatteryIcon";
-import ElectricalVehicleIcon from "./components/icons/devices/ElectricalVehicleIcon";
-import ElectricalGridIcon from "./components/icons/devices/ElectricalGridIcon";
-import BuildingIcon from "./components/icons/devices/BuildingIcon";
-import ResidualLoadsIcon from "./components/icons/devices/ResidualLoadsIcon";
+import PhotovoltaicPanelIcon from "../components/icons/devices/PhotovoltaicPanelIcon";
+import WindTurbineIcon from "../components/icons/devices/WindTurbineIcon";
+import BatteryIcon from "../components/icons/devices/BatteryIcon";
+import ElectricalVehicleIcon from "../components/icons/devices/ElectricalVehicleIcon";
+import ElectricalGridIcon from "../components/icons/devices/ElectricalGridIcon";
+import BuildingIcon from "../components/icons/devices/BuildingIcon";
+import ResidualLoadsIcon from "../components/icons/devices/ResidualLoadsIcon";
 
 /* Define device types */
 const TYPE_PHOTOVOLTAIC_PANEL = {
-  id: 1,
+  id: 0,
   name: "Photovoltaic Panel",
   color: "blue.300",
 };
-const TYPE_WIND_TURBINE = { id: 2, name: "Wind Turbine", color: "green.300" };
-const TYPE_BATTERY = { id: 3, name: "Battery", color: "red.400" };
+
+const TYPE_WIND_TURBINE = {
+  id: 1,
+  name: "Wind Turbine",
+  color: "green.300",
+};
+
+const TYPE_BATTERY = {
+  id: 2,
+  name: "Battery",
+  color: "red.400",
+};
+
 const TYPE_ELECTRICAL_VEHICLE = {
-  id: 4,
+  id: 3,
   name: "Electrical Vehicle",
   color: "gray.300",
 };
+
 const TYPE_ELECTRICAL_GRID = {
-  id: 5,
+  id: 4,
   name: "Electrical Grid",
   color: "teal.300",
 };
-const TYPE_BUILDING = { id: 6, name: "Building", color: "purple.300" };
+
+const TYPE_BUILDING = {
+  id: 5,
+  name: "Building",
+  color: "purple.300",
+};
+
 const TYPE_RESIDUAL_ELECTRICAL_LOADS = {
-  id: 7,
+  id: 6,
   name: "Residual Electrical Loads",
   color: "yellow.300",
 };
+
 export const TYPES = [
   TYPE_PHOTOVOLTAIC_PANEL,
   TYPE_WIND_TURBINE,
@@ -61,9 +80,10 @@ export const TYPE_STRING_MAP = {
 };
 
 /* Define device categories */
-const CATEGORY_PRODUCER = { id: 1, name: "Producer" };
-const CATEGORY_CONSUMER = { id: 2, name: "Consumer" };
-const CATEGORY_MIXED = { id: 3, name: "Mixed" };
+const CATEGORY_PRODUCER = { id: 0, name: "Producer" };
+const CATEGORY_CONSUMER = { id: 1, name: "Consumer" };
+const CATEGORY_MIXED = { id: 2, name: "Mixed" };
+
 export const CATEGORIES = [
   CATEGORY_PRODUCER,
   CATEGORY_CONSUMER,
