@@ -1,9 +1,10 @@
-import { Box, Icon } from "@chakra-ui/react";
+import { Box, Icon, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -29,6 +30,7 @@ const columns = [
       "cell: (info) => <p>{info.getValue()?.name}</p>,"
     */
     cell: EditableCell,
+    size: 250,
     enableColumnFilter: true,
     /* Uses builtin filter function */
     filterFn: "includesString",
@@ -65,6 +67,7 @@ const columns = [
     accessorKey: "notes",
     header: "Notes",
     cell: EditableCell,
+    size: 250,
   },
 ];
 
@@ -90,6 +93,7 @@ const TaskTable = () => {
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     columnResizeMode: "onChange",
     /* Update "data" through EditableCell */
     meta: {
@@ -176,6 +180,11 @@ const TaskTable = () => {
           </Box>
         ))}
       </Box>
+      <Text mb={3} mt={3}>
+        {/* Print "Page X of Y" */}
+        Page {table.getState().pagination.pageIndex + 1} of{" "}
+        {table.getPageCount()}
+      </Text>
     </Box>
   );
 };
