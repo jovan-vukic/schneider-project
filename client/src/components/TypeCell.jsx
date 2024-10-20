@@ -1,20 +1,20 @@
 import { Box, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 
-import { STATUSES } from "../data.js";
+import { TYPES } from "../data.js";
 
 export const ColorIcon = ({ color, ...props }) => (
   <Box w="12px" h="12px" borderRadius="full" bg={color} {...props} />
 );
 
-const StatusCell = ({ getValue, row, column, table }) => {
-  /* If status is null, default to an empty object */
+const TypeCell = ({ getValue, row, column, table }) => {
+  /* If type is null, default to an empty object */
   const { name, color } = getValue() || {};
   const { updateData } = table.options.meta;
 
   return (
     <Menu isLazy offset={[0, 0]} flip={false} autoSelect={false}>
       <MenuButton
-        aria-label="Status"
+        aria-label="Type"
         w="100%"
         h="100%"
         p={1.5}
@@ -24,20 +24,20 @@ const StatusCell = ({ getValue, row, column, table }) => {
         {name}
       </MenuButton>
       <MenuList>
-        {/* Add option to clear the status */}
+        {/* Add option to clear the type */}
         <MenuItem onClick={() => updateData(row.index, column.id, null)}>
           <ColorIcon color="gray.300" mr={2} />
-          Clear Status
+          Clear Type
         </MenuItem>
 
-        {STATUSES.map((status) => (
+        {TYPES.map((type) => (
           <MenuItem
-            key={status.id}
-            /* Update the status in the table state */
-            onClick={() => updateData(row.index, column.id, status)}
+            key={type.id}
+            /* Update the type in the table state */
+            onClick={() => updateData(row.index, column.id, type)}
           >
-            <ColorIcon color={status.color} mr={2} />
-            {status.name}
+            <ColorIcon color={type.color} mr={2} />
+            {type.name}
           </MenuItem>
         ))}
       </MenuList>
@@ -45,4 +45,4 @@ const StatusCell = ({ getValue, row, column, table }) => {
   );
 };
 
-export default StatusCell;
+export default TypeCell;

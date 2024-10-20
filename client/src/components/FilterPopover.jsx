@@ -12,10 +12,10 @@ import {
 } from "@chakra-ui/react";
 
 import FilterIcon from "./icons/FilterIcon";
-import { ColorIcon } from "./StatusCell";
-import { STATUSES } from "../data";
+import { ColorIcon } from "./TypeCell";
+import { TYPES } from "../data";
 
-const StatusItem = ({ status, isActive, setColumnFilters }) => {
+const TypeItem = ({ type, isActive, setColumnFilters }) => {
   return (
     <Button
       bg={isActive ? `green.800` : `gray.800`}
@@ -26,34 +26,33 @@ const StatusItem = ({ status, isActive, setColumnFilters }) => {
       _hover={{ bg: `gray.700` }}
       onClick={() =>
         setColumnFilters((old) => {
-          const statuses = old.find((f) => f.id === "status")?.value;
+          const types = old.find((f) => f.id === "type")?.value;
 
-          if (!statuses)
-            return old.concat({ id: "status", value: [status.id] });
+          if (!types) return old.concat({ id: "type", value: [type.id] });
 
           return old.map((f) =>
-            f.id === "status"
+            f.id === "type"
               ? {
                   ...f,
                   value: isActive
-                    ? statuses.filter((s) => s !== status.id)
-                    : statuses.concat(status.id),
+                    ? types.filter((s) => s !== type.id)
+                    : types.concat(type.id),
                 }
               : f
           );
         })
       }
     >
-      <ColorIcon color={status.color} mr={2} />
-      {status.name}
+      <ColorIcon color={type.color} mr={2} />
+      {type.name}
     </Button>
   );
 };
 
 const FilterPopover = ({ columnFilters, setColumnFilters }) => {
-  /* Get array of all active statuses to check if specific status is active */
-  /* We check if current StatusItem is in this array which means it is active. */
-  const statuses = columnFilters.find((f) => f.id === "status")?.value || [];
+  /* Get array of all active types to check if specific type is active */
+  /* We check if current TypeItem is in this array which means it is active. */
+  const types = columnFilters.find((f) => f.id === "type")?.value || [];
 
   return (
     <Popover isLazy>
@@ -70,14 +69,14 @@ const FilterPopover = ({ columnFilters, setColumnFilters }) => {
             Filter By:
           </Text>
           <Text fontWeight="bold" color="gray.400" mb={2}>
-            Status
+            Type
           </Text>
           <VStack align="flex-start" spacing={2}>
-            {STATUSES.map((status) => (
-              <StatusItem
-                key={status.id}
-                status={status}
-                isActive={statuses.includes(status.id)}
+            {TYPES.map((type) => (
+              <TypeItem
+                key={type.id}
+                type={type}
+                isActive={types.includes(type.id)}
                 setColumnFilters={setColumnFilters}
               />
             ))}

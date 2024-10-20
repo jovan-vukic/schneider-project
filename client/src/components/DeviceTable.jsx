@@ -11,7 +11,7 @@ import {
 
 import DATA from "../data.js";
 import EditableCell from "./EditableCell.jsx";
-import StatusCell from "./StatusCell.jsx";
+import TypeCell from "./TypeCell.jsx";
 import Filters from "./Filters.jsx";
 import SortIcon from "./icons/SortIcon.jsx";
 import UpArrowIcon from "./icons/UpArrowIcon.jsx";
@@ -24,8 +24,24 @@ import DownArrowIcon from "./icons/DownArrowIcon.jsx";
  */
 const columns = [
   {
-    accessorKey: "task",
-    header: "Task",
+    accessorKey: "derId",
+    header: "DER ID",
+    cell: (info) => <p>{info.getValue()}</p>,
+    size: 150,
+  },
+  {
+    accessorKey: "icon",
+    header: "Device Icon",
+    cell: (info) => {
+      const IconComponent = info.getValue();
+      return IconComponent && <Icon as={IconComponent} fontSize={50} />;
+    },
+    size: 150,
+    enableSorting: false,
+  },
+  {
+    accessorKey: "name",
+    header: "Name",
     /* Pass getValue() method from the cell's info, like in
       "cell: (info) => <p>{info.getValue()?.name}</p>,"
     */
@@ -36,42 +52,37 @@ const columns = [
     filterFn: "includesString",
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: StatusCell,
+    accessorKey: "type",
+    header: "Type",
+    cell: TypeCell,
     enableColumnFilter: true,
     enableSorting: false,
-    filterFn: (row, columnId, filterStatuses) => {
+    filterFn: (row, columnId, filterTypes) => {
       /* If it returnes false, row will be removed */
-      const status = row.getValue(columnId);
+      const type = row.getValue(columnId);
 
-      /* filterStatuses is an array of status ids defined in status filter */
+      /* filterTypes is an array of type ids defined in type filter */
       /**
-       * When we remove all filteres, the arrray filterStatuses will be empty,
+       * When we remove all filteres, the arrray filterTypes will be empty,
        * so we should return true and keep the row in the table data
        * */
-      return filterStatuses.length === 0 || filterStatuses.includes(status?.id);
+      return filterTypes.length === 0 || filterTypes.includes(type?.id);
     },
   },
   {
-    accessorKey: "due",
-    header: "Due Date",
-    cell: (info) => (
-      // Add margin on top of p
-      <p style={{ marginTop: "0.5rem", textAlign: "center" }}>
-        {info.getValue()?.toLocaleDateString()}
-      </p>
-    ),
+    accessorKey: "category",
+    header: "Category",
+    cell: (info) => <p>{info.getValue()?.name}</p>,
   },
   {
-    accessorKey: "notes",
-    header: "Notes",
-    cell: EditableCell,
+    accessorKey: "maxAvailablePower",
+    header: "MAX Available Output Power",
+    cell: (info) => <p>{info.getValue()}</p>,
     size: 250,
   },
 ];
 
-const TaskTable = () => {
+const DeviceTable = () => {
   const [data, setData] = useState(DATA);
 
   /* By default there are no filters */
@@ -172,7 +183,15 @@ const TaskTable = () => {
           <Box className="tr" key={row.id}>
             {row.getVisibleCells().map((cell) => (
               // For each cell in a row render a box
-              <Box className="td" w={cell.column.getSize()} key={cell.id}>
+              <Box
+                className="td"
+                w={cell.column.getSize()}
+                key={cell.id}
+                display="flex" // Use Flexbox for centering
+                justifyContent="center" // Center horizontally
+                alignItems="center" // Center vertically
+                height="60px"
+              >
                 {/* Render the cell (columns[i].cell value) */}
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </Box>
@@ -186,7 +205,7 @@ const TaskTable = () => {
         {table.getPageCount()}
       </Text>
       {/* Render buttons to change the page */}
-      <ButtonGroup siz="sm" isAttached variant="outline">
+      <ButtonGroup size="sm" isAttached variant="outline">
         <Button
           onClick={() => table.previousPage()}
           isDisabled={!table.getCanPreviousPage()}
@@ -204,4 +223,4 @@ const TaskTable = () => {
   );
 };
 
-export default TaskTable;
+export default DeviceTable;

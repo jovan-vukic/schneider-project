@@ -11,7 +11,7 @@ import SearchIcon from "./icons/SearchIcon";
 import FilterPopover from "./FilterPopover";
 
 const Filters = ({ columnFilters, setColumnFilters }) => {
-  const taskName = columnFilters.find((f) => f.id === "task")?.value || "";
+  const nameName = columnFilters.find((f) => f.id === "name")?.value || "";
 
   const onFilterChange = (id, value) =>
     setColumnFilters((old) =>
@@ -36,9 +36,9 @@ const Filters = ({ columnFilters, setColumnFilters }) => {
           variant="filled"
           placeholder="Search"
           _placeholder={{ color: "gray.500" }}
-          value={taskName}
+          value={nameName}
           onChange={(e) => {
-            onFilterChange("task", e.target.value);
+            onFilterChange("name", e.target.value);
           }}
         />
       </InputGroup>

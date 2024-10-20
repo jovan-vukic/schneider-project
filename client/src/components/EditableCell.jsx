@@ -16,6 +16,7 @@ const EditableCell = ({ getValue, row, column, table }) => {
 
   return (
     <Input
+      textAlign={"center"}
       type="text"
       variant="filled"
       w="85%"
