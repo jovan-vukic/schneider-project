@@ -32,12 +32,17 @@ const columns = [
   {
     accessorKey: "due",
     header: "Due Date",
-    cell: (info) => <p>{info.getValue()?.toLocaleDateString()}</p>,
+    cell: (info) => (
+      // Add margin on top of p
+      <p style={{ marginTop: "0.5rem", textAlign: "center" }}>
+        {info.getValue()?.toLocaleDateString()}
+      </p>
+    ),
   },
   {
     accessorKey: "notes",
     header: "Notes",
-    cell: (info) => <p>{info.getValue()}</p>,
+    cell: EditableCell,
   },
 ];
 
