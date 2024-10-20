@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public abstract class Device {
-    @Getter
     public enum DeviceType {
         PHOTOVOLTAIC_PANEL,
         WIND_TURBINE,
