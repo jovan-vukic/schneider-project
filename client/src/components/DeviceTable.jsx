@@ -16,6 +16,8 @@ import Filters from "./Filters.jsx";
 import SortIcon from "./icons/SortIcon.jsx";
 import UpArrowIcon from "./icons/UpArrowIcon.jsx";
 import DownArrowIcon from "./icons/DownArrowIcon.jsx";
+import EditButton from "./EditButton.jsx";
+import DeleteButton from "./DeleteButton.jsx";
 
 /**
  * AccessorKey is the name of the column in the data.
@@ -46,7 +48,7 @@ const columns = [
       "cell: (info) => <p>{info.getValue()?.name}</p>,"
     */
     cell: EditableCell,
-    size: 250,
+    size: 200,
     enableColumnFilter: true,
     /* Uses builtin filter function */
     filterFn: "includesString",
@@ -79,6 +81,19 @@ const columns = [
     header: "MAX Available Output Power",
     cell: (info) => <p>{info.getValue()}</p>,
     size: 250,
+  },
+  {
+    accessorKey: "actions",
+    header: "Actions",
+    id: "actions",
+    cell: ({ row, table }) => (
+      <ButtonGroup>
+        <EditButton row={row} table={table} />
+        <DeleteButton row={row} table={table} />
+      </ButtonGroup>
+    ),
+    size: 150,
+    enableSorting: false,
   },
 ];
 
@@ -122,8 +137,13 @@ const DeviceTable = () => {
           })
         );
       },
+      deleteData: (rowIndex) => {
+        setData((old) => old.filter((_, index) => index !== rowIndex));
+      },
     },
   });
+
+  console.log(data);
 
   /**
    * To get table headers call table.getHeaderGroups().
