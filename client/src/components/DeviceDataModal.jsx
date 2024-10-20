@@ -12,7 +12,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import { TYPES, CATEGORIES } from "../data.js";
+import { TYPES } from "../data.js";
 
 const DeviceDataModal = ({
   isOpen,
@@ -27,7 +27,10 @@ const DeviceDataModal = ({
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]:
+        name === "type"
+          ? TYPES.find((t) => t.id === parseInt(value, 10))
+          : value,
     }));
   };
 
@@ -38,12 +41,12 @@ const DeviceDataModal = ({
         backdropFilter="blur(10px) hue-rotate(90deg)"
       />
       <ModalContent>
-        <ModalHeader>Edit Device</ModalHeader>
+        <ModalHeader>{isDisabled ? "Edit Device" : "Add Device"}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <FormControl mb={4}>
             <FormLabel>DER ID</FormLabel>
-            <Input isDisabled={isDisabled} name="derId" value={data.derId} />
+            <Input isDisabled name="derId" value={data.derId} />
           </FormControl>
 
           <FormControl mb={4}>
@@ -54,11 +57,7 @@ const DeviceDataModal = ({
           <FormControl mb={4}>
             <FormLabel>Type</FormLabel>
             {isDisabled ? (
-              <Input
-                isDisabled={isDisabled}
-                name="type"
-                value={data.type.name}
-              />
+              <Input isDisabled name="type" value={data.type.name} />
             ) : (
               <Select name="type" value={data.type.id} onChange={handleChange}>
                 {TYPES.map((type) => (
@@ -70,28 +69,12 @@ const DeviceDataModal = ({
             )}
           </FormControl>
 
-          <FormControl mb={4}>
-            <FormLabel>Category</FormLabel>
-            {isDisabled ? (
-              <Input
-                isDisabled={isDisabled}
-                name="category"
-                value={data.category.name}
-              />
-            ) : (
-              <Select
-                name="category"
-                value={data.category.id}
-                onChange={handleChange}
-              >
-                {CATEGORIES.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </Select>
-            )}
-          </FormControl>
+          {isDisabled && (
+            <FormControl mb={4}>
+              <FormLabel>Category</FormLabel>
+              {<Input isDisabled name="category" value={data.category.name} />}
+            </FormControl>
+          )}
 
           <FormControl mb={4}>
             <FormLabel>MAX Available Output Power</FormLabel>
@@ -104,7 +87,14 @@ const DeviceDataModal = ({
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="green" mr={3} onClick={() => onSave(data)}>
+          <Button
+            colorScheme="green"
+            mr={3}
+            onClick={() => {
+              onSave(data);
+              onClose();
+            }}
+          >
             Save
           </Button>
           <Button variant="ghost" onClick={onClose}>

@@ -11,9 +11,6 @@ const EditButton = ({ row, table }) => {
   const handleSave = (updatedData) => {
     // Update the local data and the data in the table
     table.options.meta?.updateRowData(row.index, updatedData);
-
-    // Close the modal
-    onClose();
   };
 
   const handleModalOpen = () => {

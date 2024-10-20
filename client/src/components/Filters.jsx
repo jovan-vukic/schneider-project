@@ -25,7 +25,7 @@ const Filters = ({ columnFilters, setColumnFilters }) => {
     );
 
   return (
-    <HStack mb={5} spacing={5}>
+    <HStack mb={5} mr={7} spacing={5}>
       <InputGroup size="sm" maxW="12rem">
         <InputLeftElement pointerEvents="none">
           <Icon as={SearchIcon} />

@@ -26,6 +26,7 @@ import UpArrowIcon from "./icons/UpArrowIcon.jsx";
 import DownArrowIcon from "./icons/DownArrowIcon.jsx";
 import EditButton from "./EditButton.jsx";
 import DeleteButton from "./DeleteButton.jsx";
+import AddButton from "./AddButton.jsx";
 
 /**
  * AccessorKey is the name of the column in the data.
@@ -37,7 +38,7 @@ const columns = [
     accessorKey: "derId",
     header: "DER ID",
     cell: (info) => <p>{info.getValue()}</p>,
-    size: 150,
+    size: 250,
   },
   {
     accessorKey: "icon",
@@ -190,6 +191,11 @@ const DeviceTable = () => {
 
         showToast("Device updated successfully", "success");
       },
+      addRowData: (newRowValue) => {
+        setData((old) => [...old, newRowValue]);
+
+        showToast("Device added successfully", "success");
+      },
     },
   });
 
@@ -199,10 +205,13 @@ const DeviceTable = () => {
    */
   return (
     <Box>
-      <Filters
-        columnFilters={columnFilters}
-        setColumnFilters={setColumnFilters}
-      />
+      <Box display="flex">
+        <Filters
+          columnFilters={columnFilters}
+          setColumnFilters={setColumnFilters}
+        />
+        <AddButton table={table} />
+      </Box>
       <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           // For each header group render a box
