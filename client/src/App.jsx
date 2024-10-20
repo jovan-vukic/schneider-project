@@ -3,7 +3,7 @@ import DeviceTable from "./components/DeviceTable";
 
 function App() {
   return (
-    <Box maxW={1000} mx="auto" px={6} pt={24} fontSize="sm">
+    <Box maxW={1200} mx="auto" pt={20} fontSize="sm">
       <Heading mb={10}>DER</Heading>
       <DeviceTable />
     </Box>
