@@ -1,4 +1,4 @@
-import { Box, Icon, Text } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, Icon, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import {
   flexRender,
@@ -185,6 +185,21 @@ const TaskTable = () => {
         Page {table.getState().pagination.pageIndex + 1} of{" "}
         {table.getPageCount()}
       </Text>
+      {/* Render buttons to change the page */}
+      <ButtonGroup siz="sm" isAttached variant="outline">
+        <Button
+          onClick={() => table.previousPage()}
+          isDisabled={!table.getCanPreviousPage()}
+        >
+          {"<"}
+        </Button>
+        <Button
+          onClick={() => table.nextPage()}
+          isDisabled={!table.getCanNextPage()}
+        >
+          {">"}
+        </Button>
+      </ButtonGroup>
     </Box>
   );
 };
