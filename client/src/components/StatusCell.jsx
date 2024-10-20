@@ -1,9 +1,16 @@
-import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Box, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import React from "react";
+
+import { STATUSES } from "../data.js";
+
+const ColorIcon = ({ color, ...props }) => (
+  <Box w="12px" h="12px" borderRadius="full" bg={color} {...props} />
+);
 
 const StatusCell = ({ getValue, row, column, table }) => {
   /* If status is null, default to an empty object */
   const { name, color } = getValue() || {};
+  const { updateData } = table.options.meta;
 
   return (
     <Menu isLazy offset={[0, 0]} flip={false} autoSelect={false}>
@@ -18,10 +25,16 @@ const StatusCell = ({ getValue, row, column, table }) => {
         {name}
       </MenuButton>
       <MenuList>
-        <MenuItem>New Tab</MenuItem>
-        <MenuItem>New Window</MenuItem>
-        <MenuItem>Open Closed Tab</MenuItem>
-        <MenuItem>Open File...</MenuItem>
+        {STATUSES.map((status) => (
+          <MenuItem
+            key={status.id}
+            /* Update the status in the table state */
+            onClick={() => updateData(row.index, column.id, status)}
+          >
+            <ColorIcon color={status.color} mr={2} />
+            {status.name}
+          </MenuItem>
+        ))}
       </MenuList>
     </Menu>
   );
