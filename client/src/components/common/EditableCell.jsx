@@ -4,8 +4,17 @@ import { useEffect, useState } from "react";
 const EditableCell = ({ getValue, row, column, table }) => {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
+  const [hitEnter, setHitEnter] = useState(false);
 
-  const onValueChange = async () => {
+  const onValueChange = async (event) => {
+    if (hitEnter) {
+      setHitEnter(false);
+      return;
+    }
+
+    if (event.key === "Enter") setHitEnter(true);
+    else setHitEnter(false);
+
     await table.options.meta?.updateCellData(row.index, column.id, value);
   };
 
@@ -27,7 +36,8 @@ const EditableCell = ({ getValue, row, column, table }) => {
       textOverflow="ellipsis"
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      onBlur={() => onValueChange()}
+      onBlur={(e) => onValueChange(e)}
+      onKeyDown={(e) => e.key === "Enter" && onValueChange(e)}
     />
   );
 };
