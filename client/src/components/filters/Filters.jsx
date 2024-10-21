@@ -10,7 +10,7 @@ import SearchIcon from "../icons/SearchIcon";
 import FilterPopover from "./FilterPopover";
 
 const Filters = ({ columnFilters, setColumnFilters }) => {
-  const nameName = columnFilters.find((f) => f.id === "name")?.value || "";
+  const name = columnFilters.find((f) => f.id === "name")?.value || "";
 
   const onFilterChange = (id, value) =>
     setColumnFilters((old) =>
@@ -35,7 +35,7 @@ const Filters = ({ columnFilters, setColumnFilters }) => {
           variant="filled"
           placeholder="Search"
           _placeholder={{ color: "gray.500" }}
-          value={nameName}
+          value={name}
           onChange={(e) => {
             onFilterChange("name", e.target.value);
           }}

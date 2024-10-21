@@ -10,7 +10,7 @@ const EditButton = ({ row, table }) => {
 
   const handleSave = async (updatedData) => {
     // Update the local data and the data in the table
-    await table.options.meta?.updateRowData(row.index, updatedData);
+    await table.options.meta?.updateRowData(updatedData);
   };
 
   const handleModalOpen = () => {

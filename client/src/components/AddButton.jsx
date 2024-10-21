@@ -4,7 +4,14 @@ import { useState } from "react";
 import DeviceDataModal from "./common/DeviceDataModal";
 import { generateDerId } from "../utils/deviceUtils";
 import { Device } from "../models/Device";
-import { CATEGORY_STRING_MAP, TYPE_STRING_MAP } from "../utils/constants";
+import {
+  CATEGORY_STRING_MAP,
+  TYPE_CATEGORY_MAP,
+  TYPE_ICONS,
+  TYPE_PHOTOVOLTAIC_PANEL,
+  TYPE_STRING_MAP,
+} from "../utils/constants";
+import { PhotovoltaicPanel } from "../models/PhotovoltaicPanel";
 
 const AddButton = ({ table }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -15,19 +22,21 @@ const AddButton = ({ table }) => {
     if (isAdding) table.options.meta?.addRowData(newDevice);
   };
 
-  const handleModalOpen = () => {
+  const handleModalOpen = async () => {
     setIsAdding(true);
 
     // Set the initial data
-    setAddData(
-      new Device({
-        id: generateDerId(),
-        name: "",
-        type: TYPE_STRING_MAP[0],
-        category: CATEGORY_STRING_MAP[0],
-        maximumAvailablePower: "",
-      })
-    );
+    const initialDevice = new PhotovoltaicPanel({
+      derId: generateDerId(),
+      icon: TYPE_ICONS[TYPE_PHOTOVOLTAIC_PANEL.id],
+      name: "",
+      type: TYPE_PHOTOVOLTAIC_PANEL,
+      category: TYPE_CATEGORY_MAP[TYPE_PHOTOVOLTAIC_PANEL.id],
+    });
+
+    console.log("Initial device:", initialDevice);
+
+    setAddData(initialDevice);
 
     // Open the modal
     onOpen();
@@ -35,7 +44,11 @@ const AddButton = ({ table }) => {
 
   return (
     <>
-      <Button colorScheme="yellow" size="sm" onClick={handleModalOpen}>
+      <Button
+        colorScheme="yellow"
+        size="sm"
+        onClick={async () => await handleModalOpen()}
+      >
         Add Device
       </Button>
 

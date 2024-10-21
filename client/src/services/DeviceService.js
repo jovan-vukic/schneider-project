@@ -4,33 +4,36 @@ import api from "../utils/api";
 /* Fetch all devices */
 export const getDevices = async () => {
   const response = await api.get();
-  return (
-    response.data && response.data.map((device) => Device.fromJSON(device))
-  );
+
+  // Ensure response.data is an array and map over it
+  return response.data
+    ? await Promise.all(
+        response.data.map(async (device) => await Device.fromJSON(device))
+      )
+    : [];
 };
 
 /* Fetch device by id */
 export const getDeviceById = async (id) => {
   const response = await api.get(`/${id}`);
-  return Device.fromJSON(response.data);
+  return await Device.fromJSON(response.data);
 };
 
 /* Add new device */
 export const addDevice = async (newDevice) => {
-  const deviceToAdd = new Device(newDevice).toJSON();
+  const deviceToAdd = Device.toJSON(newDevice);
 
-  const response = await api.post("/", deviceToAdd);
-  return Device.fromJSON(response.data);
+  console.log("Device to add:", deviceToAdd);
+  const response = await api.post("", deviceToAdd);
+  return await Device.fromJSON(response.data);
 };
 
 /* Update device */
 export const updateDevice = async (id, updatedDevice) => {
-  const deviceToUpdate = new Device(updatedDevice).toJSON();
-
-  console.log("|!!!!!!|", deviceToUpdate);
+  const deviceToUpdate = Device.toJSON(updatedDevice);
 
   const response = await api.put(`/${id}`, deviceToUpdate);
-  return Device.fromJSON(response.data);
+  return await Device.fromJSON(response.data);
 };
 
 /* Delete device */

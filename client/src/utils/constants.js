@@ -7,43 +7,43 @@ import BuildingIcon from "../components/icons/devices/BuildingIcon";
 import ResidualLoadsIcon from "../components/icons/devices/ResidualLoadsIcon";
 
 /* Define device types */
-const TYPE_PHOTOVOLTAIC_PANEL = {
+export const TYPE_PHOTOVOLTAIC_PANEL = {
   id: 0,
   name: "Photovoltaic Panel",
   color: "blue.300",
 };
 
-const TYPE_WIND_TURBINE = {
+export const TYPE_WIND_TURBINE = {
   id: 1,
   name: "Wind Turbine",
   color: "green.300",
 };
 
-const TYPE_BATTERY = {
+export const TYPE_BATTERY = {
   id: 2,
   name: "Battery",
   color: "red.400",
 };
 
-const TYPE_ELECTRICAL_VEHICLE = {
+export const TYPE_ELECTRICAL_VEHICLE = {
   id: 3,
   name: "Electrical Vehicle",
   color: "gray.300",
 };
 
-const TYPE_ELECTRICAL_GRID = {
+export const TYPE_ELECTRICAL_GRID = {
   id: 4,
   name: "Electrical Grid",
   color: "teal.300",
 };
 
-const TYPE_BUILDING = {
+export const TYPE_BUILDING = {
   id: 5,
   name: "Building",
   color: "purple.300",
 };
 
-const TYPE_RESIDUAL_ELECTRICAL_LOADS = {
+export const TYPE_RESIDUAL_ELECTRICAL_LOADS = {
   id: 6,
   name: "Residual Electrical Loads",
   color: "yellow.300",
