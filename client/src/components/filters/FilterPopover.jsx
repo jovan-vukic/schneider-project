@@ -18,7 +18,8 @@ import { TYPES } from "../../utils/constants";
 const TypeItem = ({ type, isActive, setColumnFilters }) => {
   return (
     <Button
-      bg={isActive ? `green.800` : `gray.800`}
+      bg={isActive ? `green.600` : `gray.400`}
+      color={isActive ? `white` : `black`}
       size="sm"
       p={2}
       fontWeight="bold"

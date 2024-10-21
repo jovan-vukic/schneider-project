@@ -30,7 +30,6 @@ const EditableCell = ({ getValue, row, column, table }) => {
       variant="filled"
       w="85%"
       size="sm"
-      color="whiteAlpha.800"
       overflow="hidden"
       whiteSpace="nowrap"
       textOverflow="ellipsis"

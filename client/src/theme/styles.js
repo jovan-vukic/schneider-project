@@ -1,8 +1,9 @@
+// theme/styles.js
 const styles = {
   global: {
     "html, body": {
-      backgroundColor: "gray.900",
-      color: "whiteAlpha.800",
+      backgroundColor: { base: "gray.900", light: "gray" }, // Dark and light background
+      color: { base: "whiteAlpha.800", light: "gray.900" }, // Dark and light text color
     },
     svg: {
       cursor: "pointer",
@@ -20,7 +21,7 @@ const styles = {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      color: "gray.400",
+      color: { base: "gray.400", light: "gray.600" }, // Dark and light text color for header
       padding: "0.5rem",
       fontWeight: "bold",
       fontSize: "xs",
@@ -32,6 +33,9 @@ const styles = {
       padding: "0.2rem",
       bg: "transparent",
       maxW: "100%",
+      color: { base: "white", light: "red.800" },
+      border: { base: "1px solid transparent", light: "1px solid #d1d1d1" }, // Border for light mode
+      borderRadius: "4px",
     },
     ".date-wrapper": {
       display: "flex",
@@ -53,7 +57,7 @@ const styles = {
       borderRadius: "6px",
     },
     ".resizer.isResizing": {
-      bg: "#2eff31",
+      bg: { base: "#2eff31", light: "#3472c9" }, // Dark and light resizer color when resizing
       opacity: 1,
     },
     "*:hover > .resizer": {
