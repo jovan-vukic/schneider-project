@@ -12,12 +12,6 @@ import DeleteButton from "../components/DeleteButton.jsx";
  */
 const columns = [
   {
-    accessorKey: "derId",
-    header: "DER ID",
-    cell: (info) => <p>{info.getValue()}</p>,
-    size: 250,
-  },
-  {
     accessorKey: "icon",
     header: "Device Icon",
     cell: (info) => {
@@ -43,6 +37,7 @@ const columns = [
     accessorKey: "type",
     header: "Type",
     cell: TypeCell,
+    size: 200,
     enableColumnFilter: true,
     filterFn: (row, columnId, filterTypes) => {
       /* If it returnes false, row will be removed */
@@ -78,6 +73,12 @@ const columns = [
       return 0;
     },
     sortDescFirst: false,
+  },
+  {
+    accessorKey: "derId",
+    header: "DER ID",
+    cell: (info) => <p>{info.getValue()}</p>,
+    size: 250,
   },
   {
     accessorKey: "maximumAvailablePower",
