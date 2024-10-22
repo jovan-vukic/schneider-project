@@ -19,7 +19,7 @@ export const useDevices = () => {
       toast({
         title: message,
         status: status,
-        duration: 2000,
+        duration: 3500,
         isClosable: true,
       });
     }, 500);
