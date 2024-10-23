@@ -2,6 +2,7 @@ package com.schneider.project.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.schneider.project.model.enums.DeviceType;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
@@ -28,22 +29,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public abstract class Device {
-    public enum DeviceType {
-        PHOTOVOLTAIC_PANEL,
-        WIND_TURBINE,
-        BATTERY,
-        ELECTRICAL_VEHICLE,
-        ELECTRICAL_GRID,
-        BUILDING,
-        RESIDUAL_ELECTRICAL_LOADS
-    }
-
-    public enum Category {
-        PRODUCER,
-        CONSUMER,
-        MIXED
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Valid

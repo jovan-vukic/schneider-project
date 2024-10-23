@@ -1,5 +1,6 @@
 package com.schneider.project.model;
 
+import com.schneider.project.model.enums.DeviceCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -15,7 +16,7 @@ import lombok.*;
 public class ElectricalGrid extends Device {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private final Category category = Category.PRODUCER;
+    private final DeviceCategory category = DeviceCategory.PRODUCER;
 
     @Column(nullable = false)
     @NotNull
