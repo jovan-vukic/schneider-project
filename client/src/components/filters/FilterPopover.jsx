@@ -18,13 +18,13 @@ import { TYPES } from "../../utils/constants";
 const TypeItem = ({ type, isActive, setColumnFilters }) => {
   return (
     <Button
-      bg={isActive ? `green.600` : `gray.400`}
-      color={isActive ? `white` : `black`}
+      bg={isActive && `green.600`}
+      color={isActive && `white`}
       size="sm"
       p={2}
       fontWeight="bold"
       borderRadius={6}
-      _hover={{ bg: `gray.700` }}
+      _hover={!isActive && { bg: `gray.500` }}
       onClick={() =>
         setColumnFilters((old) => {
           const types = old.find((f) => f.id === "type")?.value;
@@ -59,14 +59,14 @@ const FilterPopover = ({ columnFilters, setColumnFilters }) => {
     <Popover isLazy>
       <PopoverTrigger>
         <Button size="sm" leftIcon={<Icon as={FilterIcon} fontSize="xs" />}>
-          Filter
+          <Text>Filter</Text>
         </Button>
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverBody>
-          <Text fontSize="md" color="gray.300" fontWeight="bold" mb={2}>
+          <Text fontSize="md" fontWeight="bold" mb={2}>
             Filter By:
           </Text>
           <Text fontWeight="bold" color="gray.400" mb={2}>

@@ -33,6 +33,7 @@ const EditableCell = ({ getValue, row, column, table }) => {
       overflow="hidden"
       whiteSpace="nowrap"
       textOverflow="ellipsis"
+      borderColor="transparent"
       value={value}
       onChange={(e) => setValue(e.target.value)}
       onBlur={(e) => onValueChange(e)}

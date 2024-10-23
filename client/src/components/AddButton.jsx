@@ -34,8 +34,6 @@ const AddButton = ({ table }) => {
       category: TYPE_CATEGORY_MAP[TYPE_PHOTOVOLTAIC_PANEL.id],
     });
 
-    console.log("Initial device:", initialDevice);
-
     setAddData(initialDevice);
 
     // Open the modal

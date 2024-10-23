@@ -10,12 +10,11 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Select,
   FormErrorMessage,
   Box,
   Grid,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   TYPE_BATTERY,
@@ -38,6 +37,7 @@ import { ElectricalVehicle } from "../../models/ElectricalVehicle";
 import { ElectricalGrid } from "../../models/ElectricalGrid";
 import { Building } from "../../models/Building";
 import { ResidualElectricalLoads } from "../../models/ResidualElectricalLoads";
+import TypeMenu from "./TypeMenu";
 
 const DeviceDataModal = ({
   isOpen,
@@ -48,10 +48,6 @@ const DeviceDataModal = ({
   isDisabled,
 }) => {
   const [errors, setErrors] = useState({});
-
-  // useEffect(() => {
-  //   console.log("new data:", data);
-  // }, [data]); // This will log every time `data` is updated.
 
   /* Handle input field value change */
   const handleChange = (e) => {
@@ -211,17 +207,12 @@ const DeviceDataModal = ({
                 {isDisabled ? (
                   <Input isDisabled name="type" value={data.type.name} />
                 ) : (
-                  <Select
-                    name="type"
-                    value={data.type.id || ""}
-                    onChange={handleChange}
-                  >
-                    {TYPES.map((type) => (
-                      <option key={type.id} value={type.id}>
-                        {type.name}
-                      </option>
-                    ))}
-                  </Select>
+                  <TypeMenu
+                    data={data}
+                    handleChange={(id) => {
+                      handleChange({ target: { name: "type", value: id } });
+                    }}
+                  />
                 )}
                 <FormErrorMessage>{errors.type}</FormErrorMessage>
               </FormControl>
@@ -544,7 +535,7 @@ const DeviceDataModal = ({
           <Button colorScheme="green" mr={3} onClick={handleSave}>
             Save
           </Button>
-          <Button variant="ghost" onClick={onClose}>
+          <Button colorScheme="red" onClick={onClose}>
             Cancel
           </Button>
         </ModalFooter>
