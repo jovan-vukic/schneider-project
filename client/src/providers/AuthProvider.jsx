@@ -8,7 +8,9 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
   const [token, setToken] = useState(localStorage.getItem("token") || null);
 
   const handleSignUp = async (username, password, role) => {
@@ -27,6 +29,7 @@ const AuthProvider = ({ children }) => {
 
       setToken(accessToken);
       setUser({ username, password });
+      localStorage.setItem("user", JSON.stringify({ username, password }));
       localStorage.setItem("token", accessToken);
 
       return "Success";
@@ -40,6 +43,7 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     setToken("");
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
