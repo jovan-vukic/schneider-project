@@ -76,8 +76,17 @@ const Login = () => {
   };
 
   return (
-    <Center h="100vh">
-      <Box w="xl" p={4} borderRadius="lg" boxShadow="lg">
+    <Center h="100vh" flexDir="column">
+      <Text fontSize="4xl" fontWeight="bold" mb={8}>
+        Login
+      </Text>
+      <Box
+        w="xl"
+        p={4}
+        borderRadius="lg"
+        border={"1px"}
+        borderColor={"gray.500"}
+      >
         <FormControl isInvalid={inputError.username}>
           <FormLabel>Email</FormLabel>
           <Input
@@ -89,7 +98,7 @@ const Login = () => {
           />
           <FormErrorMessage>{inputError.username}</FormErrorMessage>
         </FormControl>
-        <FormControl mt={4} isInvalid={inputError.password}>
+        <FormControl mt={8} isInvalid={inputError.password}>
           <FormLabel>Password</FormLabel>
           <Input
             name="password"
@@ -101,7 +110,7 @@ const Login = () => {
           />
           <FormErrorMessage>{inputError.password}</FormErrorMessage>
         </FormControl>
-        <Button mt={4} colorScheme="blue" onClick={handleLogin}>
+        <Button my={8} colorScheme="blue" onClick={handleLogin}>
           Login
         </Button>
         {credentialsError && (
@@ -110,6 +119,20 @@ const Login = () => {
           </Text>
         )}
       </Box>
+      <Text fontSize="md" mt={4}>
+        Don't have an account?{" "}
+        <a
+          style={{
+            color: "teal",
+            cursor: "pointer",
+            fontWeight: "bold",
+            textDecoration: "underline",
+          }}
+          href="/signup"
+        >
+          Signup
+        </a>
+      </Text>
     </Center>
   );
 };

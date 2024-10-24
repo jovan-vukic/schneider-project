@@ -22,7 +22,7 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm, message }) => {
           <Button colorScheme="red" onClick={onConfirm}>
             Confirm
           </Button>
-          <Button onClick={onClose} ml={3}>
+          <Button onClick={onClose} ml={3} variant="filled">
             Cancel
           </Button>
         </ModalFooter>

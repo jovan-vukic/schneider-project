@@ -15,7 +15,7 @@ const Logout = () => {
       size="md"
       variant="outline"
       position="absolute"
-      top="1.1rem"
+      top="1.05rem"
       right="5rem"
     >
       Logout
