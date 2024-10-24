@@ -1,6 +1,6 @@
 package com.schneider.project.controller;
 
-import com.schneider.project.DTOs.JwtDTO;
+import com.schneider.project.DTOs.SignInResponseDTO;
 import com.schneider.project.DTOs.SignInDTO;
 import com.schneider.project.DTOs.SignUpDTO;
 import com.schneider.project.config.auth.TokenProvider;
@@ -38,8 +38,11 @@ public class AuthController {
                 data.login(),
                 data.password()
         );
+
         var user = authenticationManager.authenticate(usernamePasswordToken);
         var accessToken = tokenProvider.createAccessToken(((User) user.getPrincipal()).getUsername());
-        return ResponseEntity.ok(new JwtDTO(accessToken));
+
+        User authenticatedUser = (User) user.getPrincipal();
+        return ResponseEntity.ok(new SignInResponseDTO(accessToken, authenticatedUser));
     }
 }
