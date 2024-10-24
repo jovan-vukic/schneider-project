@@ -13,16 +13,16 @@ const AuthProvider = ({ children }) => {
 
   const handleLogin = async (username, password) => {
     try {
-      await login(username, password).then(({ accessToken }) => {
-        setToken(accessToken);
-        localStorage.setItem("token", token);
-      });
+      const { accessToken } = await login(username, password);
 
+      setToken(accessToken);
       setUser({ username, password });
+      localStorage.setItem("token", accessToken);
+
       return "Success";
     } catch (error) {
       console.error(error);
-      return error.response.data.message;
+      return error.response.data.message || "Something went wrong";
     }
   };
 
