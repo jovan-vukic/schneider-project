@@ -16,6 +16,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useGlobalFilter } from "react-table";
 
 import Filters from "./filters/Filters.jsx";
 import SortIcon from "./icons/SortIcon.jsx";
@@ -41,30 +42,35 @@ const DeviceTable = () => {
 
   /* By default there are no filters */
   const [columnFilters, setColumnFilters] = useState([]);
+  const [globalFilter, setGlobalFilter] = useState([]);
 
-  const table = useReactTable({
-    data: devices,
-    columns,
-    state: {
-      columnFilters,
-    },
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    columnResizeMode: "onChange",
-    meta: {
-      updateCellData: (rowIndex, columnId, value) => {
-        updateExistingDevice({
-          ...devices[rowIndex],
-          [columnId]: value,
-        });
+  const table = useReactTable(
+    {
+      data: devices || [],
+      columns,
+      state: {
+        columnFilters,
+        globalFilter,
       },
-      deleteRowData: (rowIndex) => deleteExistingDevice(devices[rowIndex].id),
-      updateRowData: (newRow) => updateExistingDevice(newRow),
-      addRowData: (newRow) => addNewDevice(newRow),
+      getCoreRowModel: getCoreRowModel(),
+      getFilteredRowModel: getFilteredRowModel(),
+      getSortedRowModel: getSortedRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+      columnResizeMode: "onChange",
+      meta: {
+        updateCellData: (rowIndex, columnId, value) => {
+          updateExistingDevice({
+            ...devices[rowIndex],
+            [columnId]: value,
+          });
+        },
+        deleteRowData: (rowIndex) => deleteExistingDevice(devices[rowIndex].id),
+        updateRowData: (newRow) => updateExistingDevice(newRow),
+        addRowData: (newRow) => addNewDevice(newRow),
+      },
     },
-  });
+    useGlobalFilter
+  );
 
   if (loading) {
     return (
@@ -94,6 +100,9 @@ const DeviceTable = () => {
         <Filters
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
+          table={table}
+          filter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
         />
         {isAdmin && <AddButton table={table} />}
       </Box>

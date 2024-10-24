@@ -30,8 +30,6 @@ const columns = [
     cell: EditableCell,
     size: 200,
     enableColumnFilter: true,
-    /* Uses builtin filter function */
-    filterFn: "includesString",
   },
   {
     accessorKey: "type",
