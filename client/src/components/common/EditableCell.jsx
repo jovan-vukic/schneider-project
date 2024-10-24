@@ -1,10 +1,15 @@
-import { Input } from "@chakra-ui/react";
+import { Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../providers/AuthProvider";
 
 const EditableCell = ({ getValue, row, column, table }) => {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
   const [hitEnter, setHitEnter] = useState(false);
+
+  const { user } = useAuth();
+
+  const isAdmin = user?.role === "ADMIN";
 
   const onValueChange = async (event) => {
     if (hitEnter) {
@@ -22,6 +27,22 @@ const EditableCell = ({ getValue, row, column, table }) => {
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
+
+  if (!isAdmin)
+    return (
+      <Text
+        textAlign={"center"}
+        variant="filled"
+        w="85%"
+        size="md"
+        overflow="hidden"
+        whiteSpace="nowrap"
+        textOverflow="ellipsis"
+        borderColor="transparent"
+      >
+        {value}
+      </Text>
+    );
 
   return (
     <Input

@@ -2,7 +2,7 @@ import { ButtonGroup, Icon } from "@chakra-ui/react";
 
 import TypeCell from "../components/common/TypeCell.jsx";
 import EditableCell from "../components/common/EditableCell.jsx";
-import EditButton from "../components/EditButton.jsx";
+import EditViewButton from "../components/EditViewButton.jsx";
 import DeleteButton from "../components/DeleteButton.jsx";
 
 /**
@@ -92,7 +92,7 @@ const columns = [
     id: "actions",
     cell: ({ row, table }) => (
       <ButtonGroup>
-        <EditButton row={row} table={table} />
+        <EditViewButton row={row} table={table} />
         <DeleteButton row={row} table={table} />
       </ButtonGroup>
     ),

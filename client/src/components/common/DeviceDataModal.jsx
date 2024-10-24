@@ -13,6 +13,7 @@ import {
   FormErrorMessage,
   Box,
   Grid,
+  Spinner,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -38,6 +39,7 @@ import { ElectricalGrid } from "../../models/ElectricalGrid";
 import { Building } from "../../models/Building";
 import { ResidualElectricalLoads } from "../../models/ResidualElectricalLoads";
 import TypeMenu from "./TypeMenu";
+import { useAuth } from "../../providers/AuthProvider";
 
 const DeviceDataModal = ({
   isOpen,
@@ -48,6 +50,10 @@ const DeviceDataModal = ({
   isDisabled,
 }) => {
   const [errors, setErrors] = useState({});
+
+  const { user } = useAuth();
+
+  const isAdmin = user?.role === "ADMIN";
 
   /* Handle input field value change */
   const handleChange = (e) => {
@@ -197,14 +203,19 @@ const DeviceDataModal = ({
               {/* Device Name Field */}
               <FormControl isRequired mb={4} isInvalid={!!errors.name}>
                 <FormLabel>Name</FormLabel>
-                <Input name="name" value={data.name} onChange={handleChange} />
+                <Input
+                  isDisabled={!isAdmin}
+                  name="name"
+                  value={data.name}
+                  onChange={handleChange}
+                />
                 <FormErrorMessage>{errors.name}</FormErrorMessage>
               </FormControl>
 
               {/* Device Type Field */}
               <FormControl isRequired mb={4} isInvalid={!!errors.type}>
                 <FormLabel>Type</FormLabel>
-                {isDisabled ? (
+                {isDisabled || !isAdmin ? (
                   <Input isDisabled name="type" value={data.type.name} />
                 ) : (
                   <TypeMenu
@@ -237,6 +248,7 @@ const DeviceDataModal = ({
               >
                 <FormLabel>MAX Available Output Power</FormLabel>
                 <Input
+                  isDisabled={!isAdmin}
                   name="maximumAvailablePower"
                   value={data.maximumAvailablePower}
                   onChange={handleChange}
@@ -262,6 +274,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Output Power</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="outputPower"
                           value={data.outputPower}
                           onChange={handleChange}
@@ -279,6 +292,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Voltage</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="voltage"
                           value={data.voltage}
                           onChange={handleChange}
@@ -294,6 +308,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Current</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="current"
                           value={data.current}
                           onChange={handleChange}
@@ -309,6 +324,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Open Circuit Voltage</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="openCircuitVoltage"
                           value={data.openCircuitVoltage}
                           onChange={handleChange}
@@ -326,6 +342,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Short Circuit Current</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="shortCircuitCurrent"
                           value={data.shortCircuitCurrent}
                           onChange={handleChange}
@@ -343,6 +360,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Power Tolerance</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="powerTolerance"
                           value={data.powerTolerance}
                           onChange={handleChange}
@@ -362,6 +380,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Capacity</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="capacity"
                           value={data.capacity}
                           onChange={handleChange}
@@ -377,6 +396,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Minimum State of Charge</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="minStateOfCharge"
                           value={data.minStateOfCharge}
                           onChange={handleChange}
@@ -394,6 +414,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Maximum State of Charge</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="maxStateOfCharge"
                           value={data.maxStateOfCharge}
                           onChange={handleChange}
@@ -413,6 +434,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Cut in Wind Speed</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="cutInWindSpeed"
                           value={data.cutInWindSpeed}
                           onChange={handleChange}
@@ -430,6 +452,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Output Voltages</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="outputVoltages"
                           value={data.outputVoltages}
                           onChange={handleChange}
@@ -447,6 +470,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Power Ratings</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="powerRatings"
                           value={data.powerRatings}
                           onChange={handleChange}
@@ -464,6 +488,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Current Ratings</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="currentRatings"
                           value={data.currentRatings}
                           onChange={handleChange}
@@ -483,6 +508,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Motor Power</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="motorPower"
                           value={data.motorPower}
                           onChange={handleChange}
@@ -498,6 +524,7 @@ const DeviceDataModal = ({
                       >
                         <FormLabel>Battery Capacity</FormLabel>
                         <Input
+                          isDisabled={!isAdmin}
                           name="battery"
                           value={data.battery}
                           onChange={handleChange}
@@ -514,6 +541,7 @@ const DeviceDataModal = ({
                     >
                       <FormLabel>CO2 Emission Rate</FormLabel>
                       <Input
+                        isDisabled={!isAdmin}
                         name="co2EmissionRate"
                         value={data.co2EmissionRate}
                         onChange={handleChange}
@@ -532,12 +560,16 @@ const DeviceDataModal = ({
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="green" mr={3} onClick={handleSave}>
-            Save
-          </Button>
-          <Button colorScheme="red" onClick={onClose}>
-            Cancel
-          </Button>
+          {isAdmin && (
+            <>
+              <Button colorScheme="green" mr={3} onClick={handleSave}>
+                Save
+              </Button>
+              <Button colorScheme="red" onClick={onClose}>
+                Cancel
+              </Button>
+            </>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>

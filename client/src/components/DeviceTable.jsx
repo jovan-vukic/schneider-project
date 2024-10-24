@@ -24,6 +24,7 @@ import DownArrowIcon from "./icons/DownArrowIcon.jsx";
 import AddButton from "./AddButton.jsx";
 import { useDevices } from "../hooks/useDevices";
 import columns from "../utils/columns.jsx";
+import { useAuth } from "../providers/AuthProvider.jsx";
 
 const DeviceTable = () => {
   const {
@@ -33,6 +34,10 @@ const DeviceTable = () => {
     updateExistingDevice,
     deleteExistingDevice,
   } = useDevices();
+
+  const { user } = useAuth();
+
+  const isAdmin = user?.role === "ADMIN" || "";
 
   /* By default there are no filters */
   const [columnFilters, setColumnFilters] = useState([]);
@@ -90,7 +95,7 @@ const DeviceTable = () => {
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
         />
-        <AddButton table={table} />
+        {isAdmin && <AddButton table={table} />}
       </Box>
       <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
@@ -162,7 +167,7 @@ const DeviceTable = () => {
         {table.getPageCount()}
       </Text>
       {/* Render buttons to change the page */}
-      <ButtonGroup size="sm" isAttached variant="outline">
+      <ButtonGroup size="md" isAttached variant="outline">
         <Button
           onClick={() => table.previousPage()}
           isDisabled={!table.getCanPreviousPage()}

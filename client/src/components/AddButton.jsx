@@ -12,6 +12,7 @@ import {
   TYPE_STRING_MAP,
 } from "../utils/constants";
 import { PhotovoltaicPanel } from "../models/PhotovoltaicPanel";
+import { useAuth } from "../providers/AuthProvider";
 
 const AddButton = ({ table }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -2,8 +2,17 @@ import { Icon, IconButton, useDisclosure } from "@chakra-ui/react";
 
 import DeleteIcon from "./icons/DeleteIcon";
 import ConfirmModal from "./common/ConfirmModal";
+import { useAuth } from "../providers/AuthProvider";
 
 const DeleteButton = ({ row, table }) => {
+  const { user } = useAuth();
+
+  const isAdmin = user?.role === "ADMIN";
+
+  if (!isAdmin) {
+    return null;
+  }
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDelete = async () => {
