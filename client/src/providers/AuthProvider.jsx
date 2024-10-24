@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { login } from "../services/AuthService";
+import { login, signUp } from "../services/AuthService";
 
 const AuthContext = createContext();
 
@@ -10,6 +10,16 @@ const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token") || null);
+
+  const handleSignUp = async (username, password, role) => {
+    try {
+      await signUp(username, password, role);
+      return "Success";
+    } catch (error) {
+      console.error(error);
+      return error.response.data.message || "Something went wrong";
+    }
+  };
 
   const handleLogin = async (username, password) => {
     try {
@@ -35,7 +45,9 @@ const AuthProvider = ({ children }) => {
 
   /* Provide auth context to children components */
   return (
-    <AuthContext.Provider value={{ token, user, handleLogin, handleLogout }}>
+    <AuthContext.Provider
+      value={{ token, user, handleSignUp, handleLogin, handleLogout }}
+    >
       {children}
     </AuthContext.Provider>
   );

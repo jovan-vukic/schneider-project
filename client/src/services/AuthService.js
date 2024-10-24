@@ -16,7 +16,16 @@ export const login = async (username, password) => {
 };
 
 /* Sign up new user */
-export const signup = async (username, password) => {
-  const response = await api.post("/auth/signup", { username, password });
-  return response.data;
+export const signUp = async (username, password, role) => {
+  const response = await api.post("/auth/signup", {
+    login: username,
+    password,
+    role,
+  });
+
+  if (response.status === 201) {
+    return "Success";
+  } else {
+    throw new Error("Invalid signup response");
+  }
 };

@@ -8,18 +8,22 @@ import {
   FormErrorMessage,
   Text,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { useAuth } from "../../providers/AuthProvider";
+import { validateEmailAndPassword } from "../../utils/authUtils";
 
 const Login = () => {
   const data = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [input, setInput] = useState({ username: "", password: "" });
   const [inputError, setInputError] = useState({ username: "", password: "" });
   const [credentialsError, setCredentialsError] = useState("");
+
+  const isSignUpPage = location.pathname === "/signup";
 
   const setInputFieldError = (field, message) => {
     setInputError((prevInputError) => ({
@@ -29,24 +33,15 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    let email = input.username;
-    let password = input.password;
+    const email = input.username;
+    const password = input.password;
 
     /* Validate input fields */
-    let errorOccurred = false;
-
-    if (email === "") {
-      setInputFieldError("username", "This field is required");
-      errorOccurred = true;
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
-      setInputFieldError("username", "Invalid email address");
-      errorOccurred = true;
-    }
-
-    if (password === "") {
-      setInputFieldError("password", "This field is required");
-      errorOccurred = true;
-    }
+    const errorOccurred = validateEmailAndPassword(
+      email,
+      password,
+      setInputFieldError
+    );
 
     /* Validate email address */
     if (errorOccurred) return;
@@ -75,10 +70,32 @@ const Login = () => {
     }));
   };
 
+  const handleSignUp = async () => {
+    const email = input.username;
+    const password = input.password;
+
+    const errorOccurred = validateEmailAndPassword(
+      email,
+      password,
+      setInputFieldError
+    );
+
+    if (errorOccurred) return;
+
+    const response = await data.handleSignUp(email, password, "USER");
+
+    if (response === "Success") {
+      setInput({ username: "", password: "" });
+      navigate("/login");
+    } else {
+      setCredentialsError(response);
+    }
+  };
+
   return (
     <Center h="100vh" flexDir="column">
       <Text fontSize="4xl" fontWeight="bold" mb={8}>
-        Login
+        {isSignUpPage ? "Sign Up" : "Login"}
       </Text>
       <Box
         w="xl"
@@ -106,12 +123,19 @@ const Login = () => {
             value={input.password}
             onChange={handleInputChange}
             placeholder="password"
-            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+            onKeyDown={(e) =>
+              e.key === "Enter" &&
+              (isSignUpPage ? handleSignUp() : handleLogin())
+            }
           />
           <FormErrorMessage>{inputError.password}</FormErrorMessage>
         </FormControl>
-        <Button my={8} colorScheme="blue" onClick={handleLogin}>
-          Login
+        <Button
+          my={8}
+          colorScheme="blue"
+          onClick={isSignUpPage ? handleSignUp : handleLogin}
+        >
+          {isSignUpPage ? "Sign Up" : "Login"}
         </Button>
         {credentialsError && (
           <Text color="red.300" mt={4} fontSize="lg">
@@ -120,7 +144,7 @@ const Login = () => {
         )}
       </Box>
       <Text fontSize="md" mt={4}>
-        Don't have an account?{" "}
+        Do you have an account?{" "}
         <a
           style={{
             color: "teal",
@@ -128,9 +152,9 @@ const Login = () => {
             fontWeight: "bold",
             textDecoration: "underline",
           }}
-          href="/signup"
+          href={isSignUpPage ? "/login" : "/signup"}
         >
-          Signup
+          {isSignUpPage ? "Login" : "Sign Up"}
         </a>
       </Text>
     </Center>
