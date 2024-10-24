@@ -42,33 +42,33 @@ export class Device {
 
     switch (type) {
       case "PHOTOVOLTAIC_PANEL": {
-        const { PhotovoltaicPanel } = await import("./PhotovoltaicPanel"); // Dynamic import
+        const { PhotovoltaicPanel } = await import("./PhotovoltaicPanel");
         return new PhotovoltaicPanel(data);
       }
       case "WIND_TURBINE": {
-        const { WindTurbine } = await import("./WindTurbine"); // Dynamic import
+        const { WindTurbine } = await import("./WindTurbine");
         return new WindTurbine(data);
       }
       case "BATTERY": {
-        const { Battery } = await import("./Battery"); // Dynamic import
+        const { Battery } = await import("./Battery");
         return new Battery(data);
       }
       case "ELECTRICAL_VEHICLE": {
-        const { ElectricalVehicle } = await import("./ElectricalVehicle"); // Dynamic import
+        const { ElectricalVehicle } = await import("./ElectricalVehicle");
         return new ElectricalVehicle(data);
       }
       case "ELECTRICAL_GRID": {
-        const { ElectricalGrid } = await import("./ElectricalGrid"); // Dynamic import
+        const { ElectricalGrid } = await import("./ElectricalGrid");
         return new ElectricalGrid(data);
       }
       case "BUILDING": {
-        const { Building } = await import("./Building"); // Dynamic import
+        const { Building } = await import("./Building");
         return new Building(data);
       }
       case "RESIDUAL_ELECTRICAL_LOADS": {
         const { ResidualElectricalLoads } = await import(
           "./ResidualElectricalLoads"
-        ); // Dynamic import
+        );
         return new ResidualElectricalLoads(data);
       }
       default:

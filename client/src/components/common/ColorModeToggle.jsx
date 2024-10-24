@@ -14,9 +14,9 @@ const ColorModeToggle = () => {
       }
       onClick={toggleColorMode}
       variant="outline"
-      position="absolute" // Change position as needed
-      top="1rem" // Adjust the positioning as necessary
-      right="1rem" // Adjust the positioning as necessary
+      position="absolute"
+      top="1rem"
+      right="1rem"
     />
   );
 };
