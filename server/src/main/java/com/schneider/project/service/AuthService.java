@@ -7,6 +7,7 @@ import com.schneider.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,11 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return userRepository.findByLogin(username);
+        var user = userRepository.findByLogin(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + username + " not found");
+        }
+        return user;
     }
 
     public UserDetails signUp(SignUpDTO data) {
