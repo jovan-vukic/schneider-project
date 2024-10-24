@@ -23,7 +23,8 @@ const Login = () => {
   const [inputError, setInputError] = useState({ username: "", password: "" });
   const [credentialsError, setCredentialsError] = useState("");
 
-  const isSignUpPage = location.pathname === "/signup";
+  const isSignUpPage =
+    location.pathname === "/signup" || location.pathname === "/admin";
 
   const setInputFieldError = (field, message) => {
     setInputError((prevInputError) => ({
@@ -82,7 +83,11 @@ const Login = () => {
 
     if (errorOccurred) return;
 
-    const response = await data.handleSignUp(email, password, "USER");
+    const response = await data.handleSignUp(
+      email,
+      password,
+      location.pathname === "/admin" ? "ADMIN" : "USER"
+    );
 
     if (response === "Success") {
       setInput({ username: "", password: "" });
