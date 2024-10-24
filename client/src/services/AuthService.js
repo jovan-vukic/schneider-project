@@ -8,7 +8,7 @@ export const login = async (username, password) => {
   });
 
   // Check if response contains accessToken
-  if (response.data && response.data.accessToken) {
+  if (response.data && response.data.accessToken && response.data.user) {
     return response.data;
   } else {
     throw new Error("Invalid login response");
