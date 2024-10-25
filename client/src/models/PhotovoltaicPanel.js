@@ -15,8 +15,20 @@ export class PhotovoltaicPanel extends Device {
     openCircuitVoltage,
     shortCircuitCurrent,
     powerTolerance,
+    createdAt,
+    updatedAt,
   }) {
-    super({ id, derId, icon, name, type, category, maximumAvailablePower });
+    super({
+      id,
+      derId,
+      icon,
+      name,
+      type,
+      category,
+      maximumAvailablePower,
+      createdAt,
+      updatedAt,
+    });
 
     this.outputPower = parseFloat(outputPower) || undefined;
     this.voltage = parseFloat(voltage) || undefined;

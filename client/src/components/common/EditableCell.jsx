@@ -18,7 +18,6 @@ const EditableCell = ({ getValue, row, column, table }) => {
     }
 
     if (event.key === "Enter") setHitEnter(true);
-    else setHitEnter(false);
 
     await table.options.meta?.updateCellData(row.index, column.id, value);
   };

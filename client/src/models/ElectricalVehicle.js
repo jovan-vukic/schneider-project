@@ -11,8 +11,20 @@ export class ElectricalVehicle extends Device {
     maximumAvailablePower,
     motorPower,
     battery,
+    createdAt,
+    updatedAt,
   }) {
-    super({ id, derId, icon, name, type, category, maximumAvailablePower });
+    super({
+      id,
+      derId,
+      icon,
+      name,
+      type,
+      category,
+      maximumAvailablePower,
+      createdAt,
+      updatedAt,
+    });
 
     this.motorPower = parseFloat(motorPower) || undefined;
     this.battery = parseFloat(battery) || undefined;

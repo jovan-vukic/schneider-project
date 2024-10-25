@@ -13,8 +13,20 @@ export class WindTurbine extends Device {
     outputVoltages,
     powerRatings,
     currentRatings,
+    createdAt,
+    updatedAt,
   }) {
-    super({ id, derId, icon, name, type, category, maximumAvailablePower });
+    super({
+      id,
+      derId,
+      icon,
+      name,
+      type,
+      category,
+      maximumAvailablePower,
+      createdAt,
+      updatedAt,
+    });
 
     this.cutInWindSpeed = parseFloat(cutInWindSpeed) || undefined;
     this.outputVoltages = outputVoltages || "";

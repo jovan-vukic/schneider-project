@@ -12,8 +12,10 @@ export class Battery extends Device {
     capacity,
     minStateOfCharge,
     maxStateOfCharge,
+    createdAt,
+    updatedAt,
   }) {
-    console.log("Battery CONSTRUCTOR", {
+    super({
       id,
       derId,
       icon,
@@ -21,8 +23,9 @@ export class Battery extends Device {
       type,
       category,
       maximumAvailablePower,
+      createdAt,
+      updatedAt,
     });
-    super({ id, derId, icon, name, type, category, maximumAvailablePower });
 
     this.capacity = parseFloat(capacity) || undefined;
     this.minStateOfCharge = parseFloat(minStateOfCharge) || undefined;

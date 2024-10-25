@@ -15,6 +15,8 @@ export class Device {
     type,
     category,
     maximumAvailablePower,
+    createdAt,
+    updatedAt,
   }) {
     // Parse Long value
     this.id = parseInt(id) || undefined;
@@ -24,6 +26,8 @@ export class Device {
     this.type = type;
     this.category = category;
     this.maximumAvailablePower = parseFloat(maximumAvailablePower) || undefined;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   /* Convert a JSON object into a Device object */
