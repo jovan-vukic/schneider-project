@@ -20,6 +20,7 @@ import { useState } from "react";
 import {
   TYPE_BATTERY,
   TYPE_BUILDING,
+  TYPE_CATEGORY_MAP,
   TYPE_ELECTRICAL_GRID,
   TYPE_ELECTRICAL_VEHICLE,
   TYPE_PHOTOVOLTAIC_PANEL,
@@ -69,6 +70,7 @@ const DeviceDataModal = ({
               new PhotovoltaicPanel({
                 ...old,
                 [name]: TYPES.find((t) => t.id === parseInt(value, 10)),
+                category: TYPE_CATEGORY_MAP[TYPE_PHOTOVOLTAIC_PANEL.id],
               })
           );
           break;
@@ -79,6 +81,7 @@ const DeviceDataModal = ({
               new WindTurbine({
                 ...old,
                 [name]: TYPES.find((t) => t.id === parseInt(value, 10)),
+                category: TYPE_CATEGORY_MAP[TYPE_WIND_TURBINE.id],
               })
           );
           break;
@@ -89,6 +92,7 @@ const DeviceDataModal = ({
               new Battery({
                 ...old,
                 [name]: TYPES.find((t) => t.id === parseInt(value, 10)),
+                category: TYPE_CATEGORY_MAP[TYPE_BATTERY.id],
               })
           );
           break;
@@ -99,6 +103,7 @@ const DeviceDataModal = ({
               new ElectricalVehicle({
                 ...old,
                 [name]: TYPES.find((t) => t.id === parseInt(value, 10)),
+                category: TYPE_CATEGORY_MAP[TYPE_ELECTRICAL_VEHICLE.id],
               })
           );
           break;
@@ -109,6 +114,7 @@ const DeviceDataModal = ({
               new ElectricalGrid({
                 ...old,
                 [name]: TYPES.find((t) => t.id === parseInt(value, 10)),
+                category: TYPE_CATEGORY_MAP[TYPE_ELECTRICAL_GRID.id],
               })
           );
           break;
@@ -119,6 +125,7 @@ const DeviceDataModal = ({
               new Building({
                 ...old,
                 [name]: TYPES.find((t) => t.id === parseInt(value, 10)),
+                category: TYPE_CATEGORY_MAP[TYPE_BUILDING.id],
               })
           );
           break;
@@ -129,6 +136,7 @@ const DeviceDataModal = ({
               new ResidualElectricalLoads({
                 ...old,
                 [name]: TYPES.find((t) => t.id === parseInt(value, 10)),
+                category: TYPE_CATEGORY_MAP[TYPE_RESIDUAL_ELECTRICAL_LOADS.id],
               })
           );
           break;

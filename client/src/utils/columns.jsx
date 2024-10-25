@@ -62,6 +62,16 @@ const columns = [
     accessorKey: "category",
     header: "Category",
     cell: (info) => <p>{info.getValue()?.name}</p>,
+    filterFn: (row, columnId, filterCategories) => {
+      // Get the category from the current row
+      const category = row.getValue(columnId);
+
+      // If no filters are selected, keep all rows
+      if (filterCategories.length === 0) return true;
+
+      // Check if the row's category is in the selected filter categories
+      return filterCategories.includes(category?.id);
+    },
     sortingFn: (rowA, rowB) => {
       const categoryA = rowA.original.category.name.toLowerCase();
       const categoryB = rowB.original.category.name.toLowerCase();
