@@ -12,10 +12,19 @@ import {
   ListItem,
   Text,
   Spinner,
+  Icon,
+  Box,
 } from "@chakra-ui/react";
 
 import HistoryIcon from "../icons/HistoryIcon";
-import { getDeletedDevices, getDevices } from "../../services/DeviceService";
+import {
+  getDeletedDevices,
+  getDevices,
+  restoreDeletedDevice,
+} from "../../services/DeviceService";
+
+import { useDevices } from "../../hooks/useDevices";
+import ReverseIcon from "../icons/ReverseIcon";
 
 const DeviceActionHistory = () => {
   const [history, setHistory] = useState([]);
@@ -28,7 +37,6 @@ const DeviceActionHistory = () => {
       devices = await getDevices();
       deletedDevices = await getDeletedDevices();
     } catch (error) {
-      showToast("Error fetching devices", "error");
       console.error("Error fetching devices:", error);
     }
 
@@ -42,6 +50,7 @@ const DeviceActionHistory = () => {
           type: "updated",
           timestamp: new Date(device.updatedAt),
           deviceId: device.name + " [" + device.type.name + "]",
+          id: device.id,
         });
         return;
       }
@@ -51,6 +60,7 @@ const DeviceActionHistory = () => {
           type: "created",
           timestamp: new Date(device.createdAt),
           deviceId: device.name + " [" + device.type.name + "]",
+          id: device.id,
         });
       }
     });
@@ -61,6 +71,7 @@ const DeviceActionHistory = () => {
         type: "deleted",
         timestamp: new Date(device.updatedAt),
         deviceId: device.name + " [" + device.type.name + "]",
+        id: device.id,
       });
     });
 
@@ -70,6 +81,17 @@ const DeviceActionHistory = () => {
       .slice(0, 10);
 
     setHistory(sortedActions);
+  };
+
+  const restore = async (id) => {
+    try {
+      await restoreDeletedDevice(id);
+
+      // Refresh
+      window.location.reload();
+    } catch (error) {
+      console.error("Error fetching devices:", error);
+    }
   };
 
   return (
@@ -84,7 +106,7 @@ const DeviceActionHistory = () => {
           onClick={sortActionHistory}
         />
       </PopoverTrigger>
-      <PopoverContent mr={2}>
+      <PopoverContent mr={4} w="400px">
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverHeader>Device Action History</PopoverHeader>
@@ -93,19 +115,38 @@ const DeviceActionHistory = () => {
             <List spacing={3}>
               {history.slice(0, 10).map((action, index) => (
                 <ListItem key={index}>
-                  <Text fontWeight="bold">
-                    {action.type === "created"
-                      ? "Created"
-                      : action.type === "updated"
-                      ? "Updated"
-                      : "Deleted"}{" "}
-                    Device
-                    {": "}
-                    {action.deviceId}
-                  </Text>
-                  <Text fontSize="sm">
-                    At: {action.timestamp.toLocaleString()}
-                  </Text>
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent="space-between"
+                  >
+                    <Box>
+                      <Text fontWeight="bold">
+                        {action.type === "created"
+                          ? "Created"
+                          : action.type === "updated"
+                          ? "Updated"
+                          : "Deleted"}{" "}
+                        Device
+                        {": "}
+                        {action.deviceId}
+                      </Text>
+                      <Text fontSize="sm">
+                        At: {action.timestamp.toLocaleString()}
+                      </Text>
+                    </Box>
+                    <Box mr={5} mt={2}>
+                      {action.type === "deleted" && (
+                        <Icon
+                          ml={2}
+                          color="blue.700"
+                          fontSize="xl"
+                          as={ReverseIcon}
+                          onClick={() => restore(action.id)}
+                        />
+                      )}
+                    </Box>
+                  </Box>
                 </ListItem>
               ))}
             </List>

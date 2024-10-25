@@ -89,6 +89,7 @@ export const useDevices = () => {
 
   return {
     devices,
+    setDevices,
     loading,
     addNewDevice,
     updateExistingDevice,

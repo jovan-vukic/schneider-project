@@ -60,7 +60,7 @@ public class DeviceController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/restore/{id}")
+    @PutMapping("/restore/{id}")
     public ResponseEntity<Device> restoreDevice(@PathVariable Long id) {
         service.restoreDevice(id);
         return ResponseEntity.noContent().build();

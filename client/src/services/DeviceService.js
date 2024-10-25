@@ -52,3 +52,8 @@ export const updateDevice = async (id, updatedDevice) => {
 export const deleteDevice = async (id) => {
   await api.delete(`/devices/${id}`);
 };
+
+/* Restore deleted device */
+export const restoreDeletedDevice = async (id) => {
+  await api.put(`/devices/restore/${id}`);
+};
