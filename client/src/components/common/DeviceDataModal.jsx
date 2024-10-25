@@ -162,8 +162,6 @@ const DeviceDataModal = ({
   const validate = () => {
     let newErrors = validateCommonFields(data);
 
-    console.log("here in validate", data.type.id);
-    console.log("validationSchemas", validationSchemas[data.type.id]);
     if (data.type && validationSchemas[data.type.id]) {
       newErrors = {
         ...newErrors,

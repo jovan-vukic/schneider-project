@@ -47,8 +47,6 @@ export const useDevices = () => {
   /* Add a new device */
   const addNewDevice = async (device) => {
     try {
-      console.log(" device", device);
-
       const addedDevice = await addDevice(device);
       setDevices((old) => [...old, addedDevice]);
 
@@ -89,7 +87,6 @@ export const useDevices = () => {
 
   return {
     devices,
-    setDevices,
     loading,
     addNewDevice,
     updateExistingDevice,

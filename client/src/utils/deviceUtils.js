@@ -19,8 +19,6 @@ export const generateDerId = () => {
 /* Validation rules for different device types */
 export const validationSchemas = {
   [TYPE_PHOTOVOLTAIC_PANEL.id]: (data) => {
-    console.log("VAIDATION --- TYPE_PHOTOVOLTAIC_PANEL", data);
-
     const errors = {};
 
     if (!data.outputPower || data.outputPower < 0 || data.outputPower > 300) {
@@ -233,8 +231,6 @@ export const validateCommonFields = (data) => {
   }
 
   if (!data.type) {
-    console.log("data.type", data.type);
-    console.log("data.type.id", data.type.id);
     errors.type = "Type is required. Now " + data.type + " is not valid";
   }
 

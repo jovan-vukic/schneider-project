@@ -35,7 +35,6 @@ export const getDeviceById = async (id) => {
 export const addDevice = async (newDevice) => {
   const deviceToAdd = Device.toJSON(newDevice);
 
-  console.log("Device to add:", deviceToAdd);
   const response = await api.post("/devices", deviceToAdd);
   return await Device.fromJSON(response.data);
 };
