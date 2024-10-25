@@ -18,7 +18,12 @@ import lombok.*;
 public class WindTurbine extends Device {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private final DeviceCategory category = DeviceCategory.PRODUCER;
+    private DeviceCategory category;
+
+    @PrePersist
+    private void prePersist() {
+        this.category = DeviceCategory.CONSUMER;
+    }
 
     @Column(nullable = false)
     @NotNull

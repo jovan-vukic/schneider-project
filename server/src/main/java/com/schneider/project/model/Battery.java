@@ -17,7 +17,12 @@ import lombok.*;
 public class Battery extends Device {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private final DeviceCategory category = DeviceCategory.MIXED;
+    private DeviceCategory category;
+
+    @PrePersist
+    private void prePersist() {
+        this.category = DeviceCategory.MIXED;
+    }
 
     @Column(nullable = false)
     @NotNull

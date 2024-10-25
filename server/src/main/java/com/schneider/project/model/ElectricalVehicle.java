@@ -16,7 +16,12 @@ import lombok.*;
 public class ElectricalVehicle extends Device {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private final DeviceCategory category = DeviceCategory.CONSUMER;
+    private DeviceCategory category;
+
+    @PrePersist
+    private void prePersist() {
+        this.category = DeviceCategory.CONSUMER;
+    }
 
     @Column(nullable = false)
     @NotNull

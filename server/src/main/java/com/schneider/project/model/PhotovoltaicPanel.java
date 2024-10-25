@@ -17,7 +17,12 @@ import lombok.*;
 public class PhotovoltaicPanel extends Device {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private final DeviceCategory category = DeviceCategory.PRODUCER;
+    private DeviceCategory category;
+
+    @PrePersist
+    private void prePersist() {
+        this.category = DeviceCategory.PRODUCER;
+    }
 
     @Column(nullable = false)
     @NotNull
