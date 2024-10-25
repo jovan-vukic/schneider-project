@@ -48,6 +48,11 @@ public abstract class Device {
     @NotBlank(message = "DerId cannot be blank")
     private String derId;
 
+    @Pattern(regexp = "^([01])$", message = "IsArchived must be either 0 or 1")
+    @Column(nullable = false)
+    @NotNull
+    private String isArchived;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;

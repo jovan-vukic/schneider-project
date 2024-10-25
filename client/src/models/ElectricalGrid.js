@@ -12,6 +12,7 @@ export class ElectricalGrid extends Device {
     co2EmissionRate,
     createdAt,
     updatedAt,
+    isArchived,
   }) {
     super({
       id,
@@ -23,6 +24,7 @@ export class ElectricalGrid extends Device {
       maximumAvailablePower,
       createdAt,
       updatedAt,
+      isArchived,
     });
 
     this.co2EmissionRate = parseFloat(co2EmissionRate) || undefined;

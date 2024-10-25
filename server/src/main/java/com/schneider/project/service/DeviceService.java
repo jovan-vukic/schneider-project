@@ -16,7 +16,12 @@ public class DeviceService {
 
     /* Get all devices */
     public List<Device> getDevices() {
-        return repository.findAll();
+        return repository.findAll().stream().filter(device -> device.getIsArchived().equals("0")).toList();
+    }
+
+    /* Get deleted devices */
+    public List<Device> getDeletedDevices() {
+        return repository.findAll().stream().filter(device -> device.getIsArchived().equals("1")).toList();
     }
 
     /* Get device by id */
@@ -24,8 +29,12 @@ public class DeviceService {
         if (id == null)
             throw new InvalidDeviceException("Device ID cannot be null.");
 
-        return repository.findById(id)
+        Device device = repository.findById(id)
                 .orElseThrow(() -> new DeviceNotFoundException(id));
+
+        if (device.getIsArchived().equals("1"))
+            throw new InvalidDeviceException("Device is already deleted (isArchived = 1).");
+        return device;
     }
 
     /* Add new device */
@@ -68,9 +77,28 @@ public class DeviceService {
         if (id == null)
             throw new InvalidDeviceException("Device ID cannot be null.");
 
-        repository.findById(id)
+        Device device = repository.findById(id)
                 .orElseThrow(() -> new DeviceNotFoundException(id));
 
-        repository.deleteById(id);
+        if (device.getIsArchived().equals("1"))
+            throw new InvalidDeviceException("Device is already deleted (isArchived = 1).");
+
+        device.setIsArchived("1");
+        repository.save(device);
+    }
+
+    /* Restore deleted device */
+    public void restoreDevice(Long id) {
+        if (id == null)
+            throw new InvalidDeviceException("Device ID cannot be null.");
+
+        Device device = repository.findById(id)
+                .orElseThrow(() -> new DeviceNotFoundException(id));
+
+        if (!device.getIsArchived().equals("1"))
+            throw new InvalidDeviceException("Device was not deleted (isArchived = 0).");
+
+        device.setIsArchived("0");
+        repository.save(device);
     }
 }

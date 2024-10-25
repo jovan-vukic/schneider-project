@@ -15,6 +15,7 @@ export class WindTurbine extends Device {
     currentRatings,
     createdAt,
     updatedAt,
+    isArchived,
   }) {
     super({
       id,
@@ -26,6 +27,7 @@ export class WindTurbine extends Device {
       maximumAvailablePower,
       createdAt,
       updatedAt,
+      isArchived,
     });
 
     this.cutInWindSpeed = parseFloat(cutInWindSpeed) || undefined;

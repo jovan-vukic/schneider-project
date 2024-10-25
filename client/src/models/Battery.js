@@ -14,6 +14,7 @@ export class Battery extends Device {
     maxStateOfCharge,
     createdAt,
     updatedAt,
+    isArchived,
   }) {
     super({
       id,
@@ -25,6 +26,7 @@ export class Battery extends Device {
       maximumAvailablePower,
       createdAt,
       updatedAt,
+      isArchived,
     });
 
     this.capacity = parseFloat(capacity) || undefined;

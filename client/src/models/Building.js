@@ -11,6 +11,7 @@ export class Building extends Device {
     maximumAvailablePower,
     createdAt,
     updatedAt,
+    isArchived,
   }) {
     super({
       id,
@@ -22,6 +23,7 @@ export class Building extends Device {
       maximumAvailablePower,
       createdAt,
       updatedAt,
+      isArchived,
     });
   }
 }

@@ -33,6 +33,7 @@ const AddButton = ({ table }) => {
       name: "",
       type: TYPE_PHOTOVOLTAIC_PANEL,
       category: TYPE_CATEGORY_MAP[TYPE_PHOTOVOLTAIC_PANEL.id],
+      isArchived: "0",
     });
 
     setAddData(initialDevice);

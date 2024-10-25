@@ -14,27 +14,22 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
-import { useDevices } from "../../hooks/useDevices";
 import HistoryIcon from "../icons/HistoryIcon";
-import { getDevices } from "../../services/DeviceService";
+import { getDeletedDevices, getDevices } from "../../services/DeviceService";
 
 const DeviceActionHistory = () => {
   const [history, setHistory] = useState([]);
 
-  const [loading, setLoading] = useState(false);
-
   const sortActionHistory = async () => {
-    setLoading(true);
-
     let devices;
+    let deletedDevices;
 
     try {
       devices = await getDevices();
+      deletedDevices = await getDeletedDevices();
     } catch (error) {
       showToast("Error fetching devices", "error");
       console.error("Error fetching devices:", error);
-    } finally {
-      setLoading(false);
     }
 
     // Create an array to hold action history
@@ -58,6 +53,15 @@ const DeviceActionHistory = () => {
           deviceId: device.name + " [" + device.type.name + "]",
         });
       }
+    });
+
+    // Collect actions from each deleted device
+    deletedDevices.forEach((device) => {
+      actions.push({
+        type: "deleted",
+        timestamp: new Date(device.updatedAt),
+        deviceId: device.name + " [" + device.type.name + "]",
+      });
     });
 
     // Sort actions by timestamp, descending
@@ -90,7 +94,12 @@ const DeviceActionHistory = () => {
               {history.slice(0, 10).map((action, index) => (
                 <ListItem key={index}>
                   <Text fontWeight="bold">
-                    {action.type === "created" ? "Created" : "Updated"} Device
+                    {action.type === "created"
+                      ? "Created"
+                      : action.type === "updated"
+                      ? "Updated"
+                      : "Deleted"}{" "}
+                    Device
                     {": "}
                     {action.deviceId}
                   </Text>

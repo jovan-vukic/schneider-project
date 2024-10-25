@@ -86,110 +86,110 @@ const DeviceTable = () => {
     );
   }
 
-  if (!devices?.length) {
-    return (
-      <Center h="100vh">
-        <Text fontSize="2xl">No devices found</Text>
-      </Center>
-    );
-  }
-
   return (
     <Box>
       <Box display="flex">
-        <Filters
-          columnFilters={columnFilters}
-          setColumnFilters={setColumnFilters}
-          table={table}
-          filter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
+        {devices?.length > 0 && (
+          <Filters
+            columnFilters={columnFilters}
+            setColumnFilters={setColumnFilters}
+            table={table}
+            filter={globalFilter}
+            setGlobalFilter={setGlobalFilter}
+          />
+        )}
         {isAdmin && <AddButton table={table} />}
       </Box>
-      <Box className="table" w={table.getTotalSize()}>
-        {table.getHeaderGroups().map((headerGroup) => (
-          // For each header group render a box
-          <Box className="tr" key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              // For each header in the header group render a box
-              <Box className="th" w={header.getSize()} key={header.id}>
-                {/* Render the header (columns[i].header value) */}
-                {header.column.columnDef.header}
+      {devices?.length > 0 && (
+        <>
+          <Box className="table" w={table.getTotalSize()}>
+            {table.getHeaderGroups().map((headerGroup) => (
+              // For each header group render a box
+              <Box className="tr" key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  // For each header in the header group render a box
+                  <Box className="th" w={header.getSize()} key={header.id}>
+                    {/* Render the header (columns[i].header value) */}
+                    {header.column.columnDef.header}
 
-                {/* Render sorting icon */}
-                {header.column.getCanSort() && (
-                  <Icon
-                    as={
-                      header.column.getIsSorted() === "asc"
-                        ? UpArrowIcon
-                        : header.column.getIsSorted() === "desc"
-                        ? DownArrowIcon
-                        : SortIcon
-                    }
-                    mx={3}
-                    fontSize={16}
-                    onClick={header.column.getToggleSortingHandler()}
-                    color={
-                      header.column.getIsSorted() ? "yellow.300" : "gray.400"
-                    }
-                  />
-                )}
+                    {/* Render sorting icon */}
+                    {header.column.getCanSort() && (
+                      <Icon
+                        as={
+                          header.column.getIsSorted() === "asc"
+                            ? UpArrowIcon
+                            : header.column.getIsSorted() === "desc"
+                            ? DownArrowIcon
+                            : SortIcon
+                        }
+                        mx={3}
+                        fontSize={16}
+                        onClick={header.column.getToggleSortingHandler()}
+                        color={
+                          header.column.getIsSorted()
+                            ? "yellow.300"
+                            : "gray.400"
+                        }
+                      />
+                    )}
 
-                {/* Render the resizer bar for the columns */}
-                <Box
-                  onMouseDown={header.getResizeHandler()}
-                  onTouchStart={header.getResizeHandler()}
-                  /* If the column is being resized add isResizing class */
-                  className={`resizer ${
-                    header.column.getIsResizing() ? "isResizing" : ""
-                  }`}
-                />
+                    {/* Render the resizer bar for the columns */}
+                    <Box
+                      onMouseDown={header.getResizeHandler()}
+                      onTouchStart={header.getResizeHandler()}
+                      /* If the column is being resized add isResizing class */
+                      className={`resizer ${
+                        header.column.getIsResizing() ? "isResizing" : ""
+                      }`}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            ))}
+            {/* Render the rows */}
+            {table.getRowModel().rows.map((row) => (
+              // For each row render a box
+              <Box className="tr" key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  // For each cell in a row render a box
+                  <Box
+                    className="td"
+                    w={cell.column.getSize()}
+                    key={cell.id}
+                    display="flex" // Use Flexbox for centering
+                    justifyContent="center" // Center horizontally
+                    alignItems="center" // Center vertically
+                    height="60px"
+                  >
+                    {/* Render the cell (columns[i].cell value) */}
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Box>
+                ))}
               </Box>
             ))}
           </Box>
-        ))}
-        {/* Render the rows */}
-        {table.getRowModel().rows.map((row) => (
-          // For each row render a box
-          <Box className="tr" key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              // For each cell in a row render a box
-              <Box
-                className="td"
-                w={cell.column.getSize()}
-                key={cell.id}
-                display="flex" // Use Flexbox for centering
-                justifyContent="center" // Center horizontally
-                alignItems="center" // Center vertically
-                height="60px"
-              >
-                {/* Render the cell (columns[i].cell value) */}
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </Box>
-            ))}
-          </Box>
-        ))}
-      </Box>
-      <Text mb={3} mt={3}>
-        {/* Print "Page X of Y" */}
-        Page {table.getState().pagination.pageIndex + 1} of{" "}
-        {table.getPageCount()}
-      </Text>
-      {/* Render buttons to change the page */}
-      <ButtonGroup size="md" isAttached variant="outline">
-        <Button
-          onClick={() => table.previousPage()}
-          isDisabled={!table.getCanPreviousPage()}
-        >
-          {"<"}
-        </Button>
-        <Button
-          onClick={() => table.nextPage()}
-          isDisabled={!table.getCanNextPage()}
-        >
-          {">"}
-        </Button>
-      </ButtonGroup>
+          <Text mb={3} mt={3}>
+            {/* Print "Page X of Y" */}
+            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </Text>
+          {/* Render buttons to change the page */}
+          <ButtonGroup size="md" isAttached variant="outline">
+            <Button
+              onClick={() => table.previousPage()}
+              isDisabled={!table.getCanPreviousPage()}
+            >
+              {"<"}
+            </Button>
+            <Button
+              onClick={() => table.nextPage()}
+              isDisabled={!table.getCanNextPage()}
+            >
+              {">"}
+            </Button>
+          </ButtonGroup>
+        </>
+      )}
     </Box>
   );
 };

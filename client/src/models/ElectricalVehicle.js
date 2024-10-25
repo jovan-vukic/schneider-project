@@ -13,6 +13,7 @@ export class ElectricalVehicle extends Device {
     battery,
     createdAt,
     updatedAt,
+    isArchived,
   }) {
     super({
       id,
@@ -24,6 +25,7 @@ export class ElectricalVehicle extends Device {
       maximumAvailablePower,
       createdAt,
       updatedAt,
+      isArchived,
     });
 
     this.motorPower = parseFloat(motorPower) || undefined;

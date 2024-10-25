@@ -17,6 +17,7 @@ export class PhotovoltaicPanel extends Device {
     powerTolerance,
     createdAt,
     updatedAt,
+    isArchived,
   }) {
     super({
       id,
@@ -28,6 +29,7 @@ export class PhotovoltaicPanel extends Device {
       maximumAvailablePower,
       createdAt,
       updatedAt,
+      isArchived,
     });
 
     this.outputPower = parseFloat(outputPower) || undefined;

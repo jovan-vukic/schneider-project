@@ -27,6 +27,15 @@ public class DeviceController {
         return ResponseEntity.ok(devices);
     }
 
+    @GetMapping("/deleted")
+    public ResponseEntity<List<Device>> getDeletedDevices() {
+        List<Device> devices = service.getDeletedDevices();
+
+        if (devices.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(devices);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Device> getDevice(@PathVariable Long id) {
         Device device = service.getDevice(id);
@@ -48,6 +57,12 @@ public class DeviceController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Device> deleteDevice(@PathVariable Long id) {
         service.deleteDevice(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/restore/{id}")
+    public ResponseEntity<Device> restoreDevice(@PathVariable Long id) {
+        service.restoreDevice(id);
         return ResponseEntity.noContent().build();
     }
 }

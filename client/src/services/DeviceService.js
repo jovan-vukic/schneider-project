@@ -13,6 +13,18 @@ export const getDevices = async () => {
     : [];
 };
 
+/* Fetch deleted devices */
+export const getDeletedDevices = async () => {
+  const response = await api.get("/devices/deleted");
+
+  // Ensure response.data is an array and map over it
+  return response.data
+    ? await Promise.all(
+        response.data.map(async (device) => await Device.fromJSON(device))
+      )
+    : [];
+};
+
 /* Fetch device by id */
 export const getDeviceById = async (id) => {
   const response = await api.get(`/devices/${id}`);
