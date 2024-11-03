@@ -14,6 +14,7 @@ import {
   Spinner,
   Icon,
   Box,
+  useToast,
 } from "@chakra-ui/react";
 
 import HistoryIcon from "../icons/HistoryIcon";
@@ -23,11 +24,24 @@ import {
   restoreDeletedDevice,
 } from "../../services/DeviceService";
 
-import { useDevices } from "../../hooks/useDevices";
 import ReverseIcon from "../icons/ReverseIcon";
 
 const DeviceActionHistory = () => {
   const [history, setHistory] = useState([]);
+
+  const toast = useToast();
+
+  /* Display toast message */
+  const showToast = (message, status) => {
+    setTimeout(() => {
+      toast({
+        title: message,
+        status: status,
+        duration: 4000,
+        isClosable: true,
+      });
+    }, 500);
+  };
 
   const sortActionHistory = async () => {
     let devices;
@@ -87,10 +101,25 @@ const DeviceActionHistory = () => {
     try {
       await restoreDeletedDevice(id);
 
+      // Save toast message in local storage
+      localStorage.setItem(
+        "toastMessage",
+        "The device has been successfully restored."
+      );
+
       // Refresh
       window.location.reload();
     } catch (error) {
       console.error("Error fetching devices:", error);
+    }
+  };
+
+  // Show toast message after page loads
+  window.onload = () => {
+    const message = localStorage.getItem("toastMessage");
+    if (message) {
+      showToast(message, "success");
+      localStorage.removeItem("toastMessage");
     }
   };
 
