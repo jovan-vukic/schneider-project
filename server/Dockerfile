@@ -1,17 +1,19 @@
 FROM maven:3.9.8-eclipse-temurin-21 AS build
 
-COPY . /app/src
-
-COPY pom.xml /app
-
 WORKDIR /app
-RUN mvn clean package -DskipTests -U
+
+COPY . /app/
+
+RUN mvn clean package
 
 FROM openjdk:21
-COPY --from=build /app/target/project-0.0.1-SNAPSHOT.jar /app/app.jar
 
 WORKDIR /app
+
+COPY .env /app/.env
+
+COPY --from=build /app/target/*.jar /app/app.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
