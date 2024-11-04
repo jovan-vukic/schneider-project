@@ -95,3 +95,4 @@ chrome-user-data
 dist/
 dist-ssr/
 *.local
+.firebase/
