@@ -1,7 +1,12 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 
 import ColorModeToggle from "./components/common/ColorModeToggle";
-import AuthProvider from "./providers/AuthProvider.jsx";
+import AuthProvider, { useAuth } from "./providers/AuthProvider.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import Home from "./components/Home.jsx";
 import Logout from "./components/auth/Logout.jsx";
@@ -14,10 +19,38 @@ function App() {
         <Logout />
         <ColorModeToggle />
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Login />} />
-          <Route path="/admin" element={<Login />} />
+          <Route
+            path="/"
+            element={
+              <RedirectIfAuthenticated>
+                <Login />
+              </RedirectIfAuthenticated>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RedirectIfAuthenticated>
+                <Login />
+              </RedirectIfAuthenticated>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <RedirectIfAuthenticated>
+                <Login />
+              </RedirectIfAuthenticated>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <RedirectIfAuthenticated>
+                <Login />
+              </RedirectIfAuthenticated>
+            }
+          />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<Home />} />
           </Route>
@@ -25,6 +58,17 @@ function App() {
       </AuthProvider>
     </Router>
   );
+}
+
+// RedirectIfAuthenticated component to handle redirection
+function RedirectIfAuthenticated({ children }) {
+  const data = useAuth();
+
+  if (data && data.token) {
+    return <Navigate to="/home" replace />;
+  }
+
+  return children;
 }
 
 export default App;
