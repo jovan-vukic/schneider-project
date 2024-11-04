@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getDevices } from "../services/DeviceService";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -18,5 +19,24 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// Function to ping the server to keep it alive
+export const keepServerAlive = async () => {
+  const interval = 30000; // 5 minutes
+
+  setInterval(async () => {
+    await getDevices()
+      .then((response) => {
+        console.log(
+          `Pinged at ${new Date().toISOString()}: Status Code ${
+            response.status
+          }`
+        );
+      })
+      .catch((_) => {
+        console.log(`Pinged at ${new Date().toISOString()}`);
+      });
+  }, interval);
+};
 
 export default api;
